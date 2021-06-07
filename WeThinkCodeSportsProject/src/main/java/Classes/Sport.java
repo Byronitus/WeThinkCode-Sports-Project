@@ -1,6 +1,6 @@
 package Classes;
 
-public class Sports {
+public class Sport {
     public String idSport;
     public String strSport;
     public String strFormat;

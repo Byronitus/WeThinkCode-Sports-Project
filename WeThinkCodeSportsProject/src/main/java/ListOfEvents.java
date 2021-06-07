@@ -1,4 +1,4 @@
-import Classes.League;
+import Classes.Event;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -7,15 +7,15 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ListOfLeagues {
-    public ArrayList<League> ListOfLeagues = new ArrayList<>();
-    public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_leagues.php?s=";
+public class ListOfEvents {
+    public ArrayList<Event> ListOfEvent = new ArrayList<>();
+    public final String API = "https://www.thesportsdb.com/api/v1/json/1/eventsseason.php?id=";
     public Gson gson = new Gson();
 
-    public void APIListLeagues(String SportType){
+    public void APIListEvents(String LeagueID, String SeasonName){
         try
         {
-            Scanner scanner = new Scanner(new URL(this.API+SportType).openStream(),
+            Scanner scanner = new Scanner(new URL(this.API+LeagueID+"&s="+SeasonName).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
@@ -25,19 +25,18 @@ public class ListOfLeagues {
 
     public void addToArrayList(JsonObject jsonObject){
         try {
-            JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
+            JsonArray jsonArray = (JsonArray) jsonObject.get("events");
             for (int i = 0; i < jsonArray.size(); i++) {
-                JsonObject leaguesJson = (JsonObject) jsonArray.get(i);
-                League league = this.gson.fromJson(leaguesJson, League.class);
-                this.ListOfLeagues.add(league);
+                JsonObject eventJson = (JsonObject) jsonArray.get(i);
+                Event event = this.gson.fromJson(eventJson, Event.class);
+                this.ListOfEvent.add(event);
             }
         }catch(Exception e){e.printStackTrace();}
     }
 
     public void TestPrint() {
-        for (League league : this.ListOfLeagues) {
-            System.out.println(league.getStrLeague());
-            System.out.println(league.getIdLeague());
+        for (Event event : this.ListOfEvent) {
+            System.out.println(event.getStrEvent());
         }
     }
 }

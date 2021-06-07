@@ -1,21 +1,23 @@
-import Classes.League;
+import Classes.Season;
+import Classes.Team;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ListOfLeagues {
-    public ArrayList<League> ListOfLeagues = new ArrayList<>();
-    public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_leagues.php?s=";
+public class ListOfSeasons {
+    public ArrayList<Season> ListOfSeasons = new ArrayList<>();
+    public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_seasons.php?id=";
     public Gson gson = new Gson();
 
-    public void APIListLeagues(String SportType){
+    public void APIListSeason(String LeagueID){
         try
         {
-            Scanner scanner = new Scanner(new URL(this.API+SportType).openStream(),
+            Scanner scanner = new Scanner(new URL(this.API+LeagueID).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
@@ -25,19 +27,18 @@ public class ListOfLeagues {
 
     public void addToArrayList(JsonObject jsonObject){
         try {
-            JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
+            JsonArray jsonArray = (JsonArray) jsonObject.get("seasons");
             for (int i = 0; i < jsonArray.size(); i++) {
-                JsonObject leaguesJson = (JsonObject) jsonArray.get(i);
-                League league = this.gson.fromJson(leaguesJson, League.class);
-                this.ListOfLeagues.add(league);
+                JsonObject seasonJson = (JsonObject) jsonArray.get(i);
+                Season season = this.gson.fromJson(seasonJson, Season.class);
+                this.ListOfSeasons.add(season);
             }
         }catch(Exception e){e.printStackTrace();}
     }
 
     public void TestPrint() {
-        for (League league : this.ListOfLeagues) {
-            System.out.println(league.getStrLeague());
-            System.out.println(league.getIdLeague());
+        for (Season season : this.ListOfSeasons) {
+            System.out.println(season.getStrSeason());
         }
     }
 }

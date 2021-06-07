@@ -1,4 +1,4 @@
-import Classes.Sports;
+import Classes.Sport;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ListOfSports {
-    public ArrayList<Sports> ListOfSports = new ArrayList<>();
+    public ArrayList<Sport> ListOfSports = new ArrayList<>();
     public final String API = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
     public Gson gson = new Gson();
 
@@ -26,20 +26,17 @@ public class ListOfSports {
     public void addToArrayList(JsonObject jsonObject){
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("sports");
-//            System.out.println(jsonArray);
                 for (int i = 0; i < jsonArray.size(); i++) {
-                    JsonObject teamJson = (JsonObject) jsonArray.get(i);
-                    Sports sports = this.gson.fromJson(teamJson, Sports.class);
-                    this.ListOfSports.add(sports);
-//                    System.out.println(this.ListOfSports);
+                    JsonObject sportJson = (JsonObject) jsonArray.get(i);
+                    Sport sport = this.gson.fromJson(sportJson, Sport.class);
+                    this.ListOfSports.add(sport);
                 }
             }catch(Exception e){e.printStackTrace();}
     }
 
     public void TestPrint() {
-        for (Sports sports : this.ListOfSports) {
-            System.out.println(sports.getStrSport());
-//            System.out.println(sports.getStrSportDescription());
+        for (Sport sport : this.ListOfSports) {
+            System.out.println(sport.getStrSport());
         }
     }
 }
