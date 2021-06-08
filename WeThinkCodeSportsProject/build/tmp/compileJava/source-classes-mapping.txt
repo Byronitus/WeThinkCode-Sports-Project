@@ -1,26 +1,26 @@
+ListOfClasses/ListOfSeasons.java
+ ListOfClasses.ListOfSeasons
 Classes/Sport.java
  Classes.Sport
 Classes/Team.java
  Classes.Team
-main.java
- main
 Search.java
  Search
-ListOfTeams.java
- ListOfTeams
-ListOfSeasons.java
- ListOfSeasons
+Classes/League.java
+ Classes.League
 Classes/Season.java
  Classes.Season
 Classes/Event.java
  Classes.Event
-ListOfEvents.java
- ListOfEvents
-ListOfSports.java
- ListOfSports
-Classes/League.java
- Classes.League
 Classes/Player.java
  Classes.Player
-ListOfLeagues.java
- ListOfLeagues
+ListOfClasses/ListOfEvents.java
+ ListOfClasses.ListOfEvents
+ListOfClasses/ListOfSports.java
+ ListOfClasses.ListOfSports
+ListOfClasses/ListOfLeagues.java
+ ListOfClasses.ListOfLeagues
+ListOfClasses/ListOfTeams.java
+ ListOfClasses.ListOfTeams
+Main.java
+ Main

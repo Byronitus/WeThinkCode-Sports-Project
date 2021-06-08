@@ -1,3 +1,5 @@
+package ListOfClasses;
+
 import Classes.League;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -12,10 +14,14 @@ public class ListOfLeagues {
     public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_leagues.php?s=";
     public Gson gson = new Gson();
 
-    public void APIListLeagues(String SportType){
+    public String createURLString(String SportType){
+        return this.API+SportType;
+    }
+
+    public void APIListLeagues(String url){
         try
         {
-            Scanner scanner = new Scanner(new URL(this.API+SportType).openStream(),
+            Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
@@ -39,5 +45,9 @@ public class ListOfLeagues {
             System.out.println(league.getStrLeague());
             System.out.println(league.getIdLeague());
         }
+    }
+
+    public ArrayList<League> getListOfLeagues(){
+        return this.ListOfLeagues;
     }
 }

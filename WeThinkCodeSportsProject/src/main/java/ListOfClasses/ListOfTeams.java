@@ -1,3 +1,5 @@
+package ListOfClasses;
+
 import Classes.Team;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,10 +15,15 @@ public class ListOfTeams {
     public final String API = "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=";
     public Gson gson = new Gson();
 
-    public void APIListTeams(String LeagueID){
+    public String createURLString(String LeagueID){
+        return this.API+LeagueID;
+    }
+
+    public void APIListTeams(String url){
+        System.out.println(url);
         try
         {
-            Scanner scanner = new Scanner(new URL(this.API+LeagueID).openStream(),
+            Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
@@ -39,5 +46,9 @@ public class ListOfTeams {
         for (Team team : this.ListOfTeams) {
             System.out.println(team.getStrTeam());
         }
+    }
+
+    public ArrayList<Team> getListOfTeams(){
+        return this.ListOfTeams;
     }
 }

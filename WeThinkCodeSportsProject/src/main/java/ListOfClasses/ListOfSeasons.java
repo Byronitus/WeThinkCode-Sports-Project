@@ -1,3 +1,5 @@
+package ListOfClasses;
+
 import Classes.Season;
 import Classes.Team;
 import com.google.gson.Gson;
@@ -14,10 +16,14 @@ public class ListOfSeasons {
     public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_seasons.php?id=";
     public Gson gson = new Gson();
 
-    public void APIListSeason(String LeagueID){
+    public String createURLString(String LeagueID){
+        return this.API+LeagueID;
+    }
+
+    public void APIListSeason(String url){
         try
         {
-            Scanner scanner = new Scanner(new URL(this.API+LeagueID).openStream(),
+            Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
@@ -40,5 +46,9 @@ public class ListOfSeasons {
         for (Season season : this.ListOfSeasons) {
             System.out.println(season.getStrSeason());
         }
+    }
+
+    public ArrayList<Season> getListOfSeasons(){
+        return this.ListOfSeasons;
     }
 }
