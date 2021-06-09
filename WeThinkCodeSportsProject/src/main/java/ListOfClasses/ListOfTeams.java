@@ -1,21 +1,29 @@
-import Classes.Leagues;
+package ListOfClasses;
+
+import Classes.Team;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ListOfLeagues {
-    public ArrayList<Leagues> ListOfLeagues = new ArrayList<>();
-    public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_leagues.php?s=";
+public class ListOfTeams {
+    public ArrayList<Team> ListOfTeams = new ArrayList<>();
+    public final String API = "https://www.thesportsdb.com/api/v1/json/1/lookup_all_teams.php?id=";
     public Gson gson = new Gson();
 
-    public void APIListLeagues(String SportType){
+    public String createURLString(String LeagueID){
+        return this.API+LeagueID;
+    }
+
+    public void APIListTeams(String url){
+        System.out.println(url);
         try
         {
-            Scanner scanner = new Scanner(new URL(this.API+SportType).openStream(),
+            Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
@@ -25,18 +33,22 @@ public class ListOfLeagues {
 
     public void addToArrayList(JsonObject jsonObject){
         try {
-            JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
+            JsonArray jsonArray = (JsonArray) jsonObject.get("teams");
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject teamJson = (JsonObject) jsonArray.get(i);
-                Leagues leagues = this.gson.fromJson(teamJson, Leagues.class);
-                this.ListOfLeagues.add(leagues);
+                Team team = this.gson.fromJson(teamJson, Team.class);
+                this.ListOfTeams.add(team);
             }
         }catch(Exception e){e.printStackTrace();}
     }
 
     public void TestPrint() {
-        for (Leagues leagues : this.ListOfLeagues) {
-            System.out.println(leagues.getStrLeague());
+        for (Team team : this.ListOfTeams) {
+            System.out.println(team.getStrTeam());
         }
+    }
+
+    public ArrayList<Team> getListOfTeams(){
+        return this.ListOfTeams;
     }
 }

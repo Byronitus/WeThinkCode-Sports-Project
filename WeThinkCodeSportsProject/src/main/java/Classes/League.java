@@ -1,6 +1,6 @@
 package Classes;
 
-public class Leagues {
+public class League {
     public String idLeague;
     public String idSoccerXML;
     public String idAPIfootball;
