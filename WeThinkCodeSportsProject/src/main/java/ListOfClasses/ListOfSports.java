@@ -1,5 +1,6 @@
 package ListOfClasses;
 
+import Classes.Database;
 import Classes.Sport;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -13,6 +14,11 @@ public class ListOfSports {
     public ArrayList<Sport> ListOfSports = new ArrayList<>();
     public final String API = "https://www.thesportsdb.com/api/v1/json/1/all_sports.php";
     public Gson gson = new Gson();
+    public Database database;
+
+    public ListOfSports(Database database){
+        this.database = database;
+    }
 
     public String createURLString(){
         return this.API;
@@ -21,10 +27,15 @@ public class ListOfSports {
     public void APIListSports(String url){
         try
         {
-            Scanner scanner = new Scanner(new URL(url).openStream(),
-                    StandardCharsets.UTF_8.toString());
-            scanner.useDelimiter("\\A");
-            JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
+            JsonObject jsonObject;
+            jsonObject = database.checkIfDocumentExists("Sports","Sports");
+            if (jsonObject == null) {
+                Scanner scanner = new Scanner(new URL(url).openStream(),
+                        StandardCharsets.UTF_8.toString());
+                scanner.useDelimiter("\\A");
+                jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
+            database.AddDocument(jsonObject,"Sports","Sports");
+            }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}
     }

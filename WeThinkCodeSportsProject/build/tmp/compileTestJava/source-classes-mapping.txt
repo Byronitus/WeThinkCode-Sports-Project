@@ -1,10 +1,10 @@
-ListOfLeaguesTest.java
- ListOfLeaguesTest
-ListOfSeasonsTest.java
- ListOfSeasonsTest
 ListOfEventsTest.java
  ListOfEventsTest
-ListOfSportsTest.java
- ListOfSportsTest
+ListOfSeasonsTest.java
+ ListOfSeasonsTest
+ListOfLeaguesTest.java
+ ListOfLeaguesTest
 ListOfTeamsTest.java
  ListOfTeamsTest
+ListOfSportsTest.java
+ ListOfSportsTest

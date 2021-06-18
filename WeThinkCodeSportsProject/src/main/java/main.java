@@ -1,31 +1,29 @@
-import ListOfClasses.ListOfEvents;
-import ListOfClasses.ListOfLeagues;
-import ListOfClasses.ListOfSeasons;
-import ListOfClasses.ListOfTeams;
-
-import java.io.File;
-import java.net.URL;
+import Classes.Database;
+import ListOfClasses.*;
 
 public class Main {
 
     public static void main(String[] args) {
-//        Search search = new Search();
+        Database database = new Database();
+
+
+//        Search search = new Search("Arsenal_vs_Chelsea");
 //        search.getUserSearch();
 //        search.TestPrint();
 
 
-//        ListOfSports listOfSports = new ListOfSports();
-//        listOfSports.APIListSports();
+//        ListOfSports listOfSports = new ListOfSports(database);
+//        listOfSports.APIListSports(listOfSports.createURLString());
 //        listOfSports.TestPrint();
 
 
-//        ListOfLeagues listOfLeagues = new ListOfLeagues();
-//        listOfLeagues.APIListLeagues(listOfLeagues.createURLString("Motorsport"));
-//        listOfLeagues.TestPrint();
+        ListOfLeagues listOfLeagues = new ListOfLeagues("cricket",database);
+        listOfLeagues.APIListLeagues(listOfLeagues.createURLString());
+        listOfLeagues.TestPrint();
 
 
-//        ListOfTeams listOfTeams = new ListOfTeams();
-//        listOfTeams.APIListTeams(listOfTeams.createURLString("4370"));
+//        ListOfTeams listOfTeams = new ListOfTeams("4370",database);
+//        listOfTeams.APIListTeams(listOfTeams.createURLString());
 //        listOfTeams.TestPrint();
 
 

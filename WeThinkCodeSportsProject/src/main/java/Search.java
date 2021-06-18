@@ -1,3 +1,4 @@
+import Classes.Event;
 import Classes.Player;
 import Classes.Team;
 import com.google.gson.Gson;
@@ -12,21 +13,35 @@ public class Search {
     public final String API = "https://www.thesportsdb.com/api/v1/json/1/";
     public final String SearchTeams = "searchteams.php?t=";
     public final String SearchPlayers = "searchplayers.php?p=";
+    public final String SearchEvent = "searchevents.php?e=";
     public String SearchString;
+    public ArrayList<Event> EventList = new ArrayList<>();
     public ArrayList<Team> TeamList = new ArrayList<Team>();
     public ArrayList<Player> PlayerList = new ArrayList<Player>();
     public Gson gson = new Gson();
 
-
+    public Search(String SearchString){
+        this.SearchString = SearchString;
+    }
 
 
     public void getUserSearch(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("ENTER TEAM NAME");
-        this.SearchString = scanner.nextLine();
         APITeamSearch();
         APIPlayerSearch();
+        APIEventSearch();
     }
+
+    public void APIEventSearch(){
+        try
+        {
+            Scanner scanner = new Scanner(new URL(this.API+this.SearchEvent+this.SearchString.replaceAll(" ","%20")).openStream(),
+                    StandardCharsets.UTF_8.toString());
+            scanner.useDelimiter("\\A");
+            JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
+            addToArrayListEvent(jsonObject, this.EventList);
+        }catch (Exception e){e.printStackTrace();}
+    }
+
 
     public void APIPlayerSearch(){
         try
@@ -61,6 +76,17 @@ public class Search {
         }catch(Exception e){}
     }
 
+    public void addToArrayListEvent(JsonObject jsonObject, ArrayList arrayList){
+        try {
+            JsonArray jsonArray = (JsonArray) jsonObject.get("event");
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JsonObject teamJson = (JsonObject) jsonArray.get(i);
+                Event event = this.gson.fromJson(teamJson, Event.class);
+                arrayList.add(event);
+            }
+        }catch(Exception e){}
+    }
+
     public void addToArrayListPlayer(JsonObject jsonObject, ArrayList arrayList){
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("player");
@@ -78,6 +104,10 @@ public class Search {
         }
         for (Player player:PlayerList) {
             System.out.println(player.getStrPlayer());
+        }
+        for (Event event:EventList){
+            System.out.println(event.getStrEvent());
+            System.out.println(event.getDateEvent());
         }
     }
 }
