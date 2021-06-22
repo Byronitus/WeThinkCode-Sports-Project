@@ -22,7 +22,7 @@ public class Database {
     MongoDatabase mongoDatabase;
 
     public Database(){
-        this.client = MongoClients.create("mongodb+srv://admin:9wM1j5hGec7zjy8c@cluster0.b8igj.mongodb.net/test");
+        this.client = MongoClients.create("");
         this.mongoDatabase = this.client.getDatabase("SportsDB");
     }
 
