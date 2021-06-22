@@ -22,7 +22,7 @@ public class Database {
     MongoDatabase mongoDatabase;
 
     public Database(){
-        this.client = MongoClients.create("mongodb+srv://admin:9wM1j5hGec7zjy8c@cluster0.b8igj.mongodb.net/test");
+        this.client = MongoClients.create("");
         this.mongoDatabase = this.client.getDatabase("SportsDB");
     }
 
@@ -59,8 +59,8 @@ public class Database {
     }
 
     public void DeleteDocument(String id, String Collection){
-        MongoCollection mongoCollection = this.mongoDatabase.getCollection("Sports");
-        mongoCollection.deleteOne(Filters.eq("_id","Sports"));
+        MongoCollection mongoCollection = this.mongoDatabase.getCollection(Collection);
+        mongoCollection.deleteOne(Filters.eq("_id",id));
     }
 
     public JsonObject checkIfDocumentExists(String id, String Collection){
@@ -70,9 +70,12 @@ public class Database {
             JsonObject jsonObject = new Gson().fromJson(document.toJson(), JsonObject.class);
             if (!checkDate(jsonObject.get("date").toString())){
                 DeleteDocument(id,Collection);
+                System.out.println("yes");
                 return null;
             }
             return jsonObject;
-        }catch (NullPointerException exception){return null;}
+        }catch (NullPointerException exception){
+            System.out.println("yes, again");
+            return null;}
     }
 }
