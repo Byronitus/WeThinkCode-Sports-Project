@@ -1,3 +1,4 @@
+import Classes.Database;
 import Classes.Team;
 import ListOfClasses.ListOfTeams;
 import com.google.gson.Gson;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 
 public class ListOfTeamsTest {
+    public Database database;
 
     @Test
     void TestAPIIntegration(){
@@ -18,7 +20,7 @@ public class ListOfTeamsTest {
             FileReader fileReader = new FileReader("src\\\\test\\\\java\\\\JSONTestFiles\\\\Teams.json");
             JsonObject jsonObject = new Gson().fromJson(fileReader, JsonObject.class); //Creating json object
             JsonArray jsonArray = (JsonArray) jsonObject.get("teams");
-            ListOfTeams listOfTeams = new ListOfTeams();
+            ListOfTeams listOfTeams = new ListOfTeams("4370",this.database);
             listOfTeams.APIListTeams("file:///"+(new File("Leagues.json").getAbsolutePath())
                     .replaceAll("Leagues.json","src\\\\test\\\\java\\\\JSONTestFiles\\\\Teams.json")); //Sending the url of the json file
             for (Team team:listOfTeams.getListOfTeams()) { //Iterating through the list of classes and comparing it to the json file

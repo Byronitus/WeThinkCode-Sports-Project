@@ -1,3 +1,4 @@
+import Classes.Database;
 import Classes.League;
 import ListOfClasses.ListOfLeagues;
 import com.google.gson.Gson;
@@ -5,10 +6,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import javax.xml.crypto.Data;
 import java.io.File;
 import java.io.FileReader;
 
 public class ListOfLeaguesTest {
+    public Database database;
 
     @Test
     void TestAPIIntegration(){
@@ -17,7 +21,7 @@ public class ListOfLeaguesTest {
             FileReader fileReader = new FileReader("src\\\\test\\\\java\\\\JSONTestFiles\\\\Leagues.json");
             JsonObject jsonObject = new Gson().fromJson(fileReader, JsonObject.class); //Creating json object
             JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
-            ListOfLeagues listOfLeagues = new ListOfLeagues();
+            ListOfLeagues listOfLeagues = new ListOfLeagues("Motorsport",this.database);
             listOfLeagues.APIListLeagues("file:///"+(new File("Leagues.json").getAbsolutePath())
                     .replaceAll("Leagues.json","src\\\\test\\\\java\\\\JSONTestFiles\\\\Leagues.json")); //Sending the url of the json file
         for (League league:listOfLeagues.getListOfLeagues()) { //Iterating through the list of classes and comparing it to the json file

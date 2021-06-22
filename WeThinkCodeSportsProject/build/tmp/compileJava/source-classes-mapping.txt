@@ -4,8 +4,8 @@ Classes/Sport.java
  Classes.Sport
 Classes/Team.java
  Classes.Team
-Search.java
- Search
+ListOfClasses/ListOfTeams.java
+ ListOfClasses.ListOfTeams
 Classes/League.java
  Classes.League
 Classes/Season.java
@@ -16,11 +16,13 @@ Classes/Player.java
  Classes.Player
 ListOfClasses/ListOfEvents.java
  ListOfClasses.ListOfEvents
-ListOfClasses/ListOfSports.java
- ListOfClasses.ListOfSports
 ListOfClasses/ListOfLeagues.java
  ListOfClasses.ListOfLeagues
-ListOfClasses/ListOfTeams.java
- ListOfClasses.ListOfTeams
+ListOfClasses/ListOfSports.java
+ ListOfClasses.ListOfSports
+Classes/Database.java
+ Classes.Database
+Search.java
+ Search
 Main.java
  Main
