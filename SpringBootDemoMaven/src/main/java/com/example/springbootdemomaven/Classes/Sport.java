@@ -1,20 +1,12 @@
 package com.example.springbootdemomaven.Classes;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-@Entity
 public class Sport {
-    public @Id Long idSport;
+    public Long idSport;
     public String strSport;
     public String strFormat;
     public String strSportThumb;
     public String strSportThumbGreen;
-
-    @Column(length=10485760)
     public String strSportDescription;
 
     public String getStrSportDescription() {

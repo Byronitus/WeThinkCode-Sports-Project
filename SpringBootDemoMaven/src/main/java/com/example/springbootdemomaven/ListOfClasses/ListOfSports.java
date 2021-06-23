@@ -1,4 +1,4 @@
-package com.example.springbootdemomaven;
+package com.example.springbootdemomaven.ListOfClasses;
 
 
 import com.example.springbootdemomaven.Classes.Database;
@@ -6,7 +6,7 @@ import com.example.springbootdemomaven.Classes.Sport;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import org.springframework.stereotype.Component;
+
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
