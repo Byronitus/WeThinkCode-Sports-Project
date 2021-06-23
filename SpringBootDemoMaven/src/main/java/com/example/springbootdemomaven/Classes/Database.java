@@ -70,12 +70,10 @@ public class Database {
             JsonObject jsonObject = new Gson().fromJson(document.toJson(), JsonObject.class);
             if (!checkDate(jsonObject.get("date").toString())){
                 DeleteDocument(id,Collection);
-                System.out.println("yes");
                 return null;
             }
             return jsonObject;
         }catch (NullPointerException exception){
-            System.out.println("yes, again");
             return null;}
     }
 }
