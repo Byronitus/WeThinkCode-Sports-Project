@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 @Controller
 public class HomeController {
@@ -47,6 +48,13 @@ public class HomeController {
         ListOfEvents listOfEvents = new ListOfEvents();
         listOfEvents.APIListEvents(listOfEvents.createURLString(id,season));
         return ResponseEntity.ok(listOfEvents.getListOfEvent());
+    }
+
+    @GetMapping("/api/Search/{searchString}")
+    public ResponseEntity<ArrayList<Object>> getUserSearch(@PathVariable(value = "searchString") String searchString){
+        Search search = new Search(searchString);
+        search.UserSearch();
+        return ResponseEntity.ok(search.getUserSearchList());
     }
 
     @RequestMapping(value = "/")
