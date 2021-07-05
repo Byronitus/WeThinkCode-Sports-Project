@@ -1,5 +1,6 @@
-import Classes.Event;
-import ListOfClasses.ListOfEvents;
+
+import com.example.springbootdemomaven.Classes.Event;
+import com.example.springbootdemomaven.ListOfClasses.ListOfEvents;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

@@ -1,5 +1,5 @@
-import Classes.Season;
-import ListOfClasses.ListOfSeasons;
+import com.example.springbootdemomaven.Classes.Season;
+import com.example.springbootdemomaven.ListOfClasses.ListOfSeasons;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
