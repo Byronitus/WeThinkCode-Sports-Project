@@ -17,7 +17,7 @@ import java.util.Objects;
 @Controller
 public class HomeController {
 //    Database database = new Database();
-    public MongoClient client = MongoClients.create("mongodb+srv://admin:9wM1j5hGec7zjy8c@cluster0.b8igj.mongodb.net/test");
+    public MongoClient client = MongoClients.create("");
     public MongoDatabase mongoDatabase = this.client.getDatabase("SportsDB");
 
     @GetMapping("/api/sport")
