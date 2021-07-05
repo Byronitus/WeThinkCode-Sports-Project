@@ -1,0 +1,20 @@
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+container{
+    padding: 0 1rem;
+}
+.btn {
+    display: inline-block;
+    border: none;
+    background: #09b110;
+    color: #bd0d0d;
+    padding: 7px 20px;
+    cursor: pointer;
+}
+.btn:hover {
+    background: #666;
+}
