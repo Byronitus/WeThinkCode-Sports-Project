@@ -74,6 +74,8 @@ public class Search {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject teamJson = (JsonObject) jsonArray.get(i);
                 Team team = this.gson.fromJson(teamJson, Team.class);
+                changeURLTeam(team);
+                checkImageTeam(team);
                 arrayList.add(team);
             }
         }catch(Exception e){}
@@ -85,6 +87,8 @@ public class Search {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject teamJson = (JsonObject) jsonArray.get(i);
                 Event event = this.gson.fromJson(teamJson, Event.class);
+                changeURLEvent(event);
+                checkImageEvent(event);
                 arrayList.add(event);
             }
         }catch(Exception e){}
@@ -96,9 +100,57 @@ public class Search {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject teamJson = (JsonObject) jsonArray.get(i);
                 Player player = this.gson.fromJson(teamJson, Player.class);
+                changeURLPlayer(player);
+                checkImagePlayer(player);
                 arrayList.add(player);
             }
         }catch(Exception e){}
+    }
+
+    public void checkImageTeam(Team team){
+        if (team.strTeamLogo == null){
+            team.setTeamLogo("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
+        }
+    }
+
+    public void changeURLTeam(Team team){
+        String badge = team.getStrTeamLogo();
+        if (badge != null){
+            String url = "https://www.thesportsdb.com/images/media/team/logo/";
+            badge = badge.replaceAll(url,"small/");
+            team.setTeamLogo(url + badge);
+        }
+    }
+
+    public void checkImagePlayer(Player player){
+        if (player.strThumb == null){
+            player.setStrThumb("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
+        }
+        player.setStrPlayerImage(player.getStrThumb());
+    }
+
+    public void changeURLPlayer(Player player){
+        String badge = player.getStrThumb();
+        if (badge != null){
+            String url = "https://www.thesportsdb.com/images/media/player/thumb/";
+            badge = badge.replaceAll(url,"small/");
+            player.setStrThumb(url + badge);
+        }
+    }
+
+    public void checkImageEvent(Event event){
+        if (event.strThumb == null){
+            event.setStrThumb("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
+        }
+    }
+
+    public void changeURLEvent(Event event){
+        try {
+            String logo = event.getStrThumb();
+            String url = "https://www.thesportsdb.com/images/media/event/thumb/";
+            logo = logo.replaceAll(url, "small/");
+            event.setStrThumb(url + logo);
+        }catch (Exception e){}
     }
 
     public ArrayList<Object> getUserSearchList(){

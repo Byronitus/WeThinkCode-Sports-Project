@@ -3,7 +3,7 @@ import {Redirect} from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import PropTypes from "prop-types";
 
-class TeamListInfo extends Component{
+class ListOfEventsInfo extends Component{
 
     state ={check : false};
 
@@ -25,20 +25,19 @@ class TeamListInfo extends Component{
     }
 
     render() {
-
-        //Destructuring instead of using this.props.user.<variable> you can now use name | surname
         if (this.state.check){
-            console.log(this.props.user.idTeam)
-            return <Redirect push to={{pathname: "/team",state: {TeamID : this.props.user.idTeam, TeamDescription : this.props.user.strDescriptionEN}}}/>
+            return <Redirect push to={{pathname: "/Events",state: {sportType : this.props.user.strSport,
+                    Event : this.props.user.strFilename, League : this.props.user.strLeague, Round : this.props.user.intRound,
+            Date : this.props.user.dateEvent, Venue : this.props.user.strVenue, Country : this.props.user.strCountry, Started : this.props.user.strStatus}}}/>
         }
         const {id} = this.props.user;
         return(
             <div style={this.infoStyle()}>
                 <Button color="primary" variant="outlined" onClick={this.setCheck}>
-                    {this.props.user.strTeam}
+                    {this.props.user.strEvent}
                 </Button>
-                <div className="team-badge" style={{ justifyContent:'center', alignItems:'center'}}>
-                    <img src={this.props.user.strTeamLogo} alt=""/>
+                <div className="shoe-container" style={{ justifyContent:'center', alignItems:'center'}}>
+                    <img src={this.props.user.strThumb} alt=""/>
                 </div>
             </div>
         );
@@ -55,7 +54,7 @@ const buttons = {
     display: 'flex'
 }
 //PropTypes
-TeamListInfo.propTypes = {
+ListOfEventsInfo.propTypes = {
     user : PropTypes.object.isRequired
 }
-export  default  TeamListInfo;
+export  default  ListOfEventsInfo;

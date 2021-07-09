@@ -8,7 +8,10 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mongodb.client.MongoDatabase;
+import org.ini4j.Wini;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -16,18 +19,31 @@ import java.util.Scanner;
 
 public class ListOfLeagues {
     public ArrayList<League> ListOfLeagues = new ArrayList<>();
-    public final String API = "https://www.thesportsdb.com/api/v1/json/1/search_all_leagues.php?s=";
+    public final String API = "https://www.thesportsdb.com/api/v1/json/";
+    public String field = "/search_all_leagues.php?s=";
     public Gson gson = new Gson();
     public String SportType;
     public Database database;
+    public String APIkey;
+
+    public void ReadFromIni(){
+        try {
+            InputStream inputStream = new FileInputStream("APIKey.ini");
+            Wini iniFile = new Wini(inputStream);
+            this.APIkey = iniFile.get("APIKey", "key", String.class);
+        }catch (Exception e){
+            this.APIkey = "1";
+        }
+    }
 
     public ListOfLeagues(String SportType, MongoDatabase mongoDatabase){
         this.database = new Database(mongoDatabase);
         this.SportType = SportType;
+        ReadFromIni();
     }
 
     public String createURLString(){
-        return this.API+this.SportType;
+        return this.API+this.APIkey+this.field+this.SportType;
     }
 
     public void APIListLeagues(String url){

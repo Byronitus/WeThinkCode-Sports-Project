@@ -62,6 +62,43 @@ public class HomeController {
         return ResponseEntity.ok(search.getUserSearchList());
     }
 
+    @GetMapping("/api/Players/{TeamID}")
+    public ResponseEntity<ArrayList<Player>> getListOfPlayers(@PathVariable(value = "TeamID") String TeamID){
+        ListOfPlayers listOfPlayers = new ListOfPlayers(this.mongoDatabase, TeamID);
+        listOfPlayers.APIListPlayers(listOfPlayers.CreateURL());
+        return ResponseEntity.ok(listOfPlayers.getListOfPlayers());
+    }
+
+    @GetMapping("/api/TeamUpcomingEvents/{TeamID}")
+    public ResponseEntity<ArrayList<Event>> getListOfTeamEvents(@PathVariable(value = "TeamID") String TeamID){
+        FutureEventsForTeam futureEventsForTeam = new FutureEventsForTeam(mongoDatabase, TeamID);
+        futureEventsForTeam.APIListEvents(futureEventsForTeam.CreateURL());
+        return ResponseEntity.ok(futureEventsForTeam.getListOfEvents());
+    }
+
+    @GetMapping("/api/TeamPastEvents/{TeamID}")
+    public ResponseEntity<ArrayList<Event>> getListOfTeamEventsPast(@PathVariable(value = "TeamID") String TeamID){
+        PastEventsForTeam pastEventsForTeam = new PastEventsForTeam(mongoDatabase, TeamID);
+        pastEventsForTeam.APIListEvents(pastEventsForTeam.CreateURL());
+        return ResponseEntity.ok(pastEventsForTeam.getListOfEvents());
+    }
+
+    @GetMapping("/api/LeaguePastEvents/{LeagueID}")
+    public ResponseEntity<ArrayList<Event>> getListOfLeagueEventsPast(@PathVariable(value = "LeagueID") String LeagueID){
+        PastEventsForLeague pastEventsForLeague = new PastEventsForLeague(mongoDatabase, LeagueID);
+        pastEventsForLeague.APIListEvents(pastEventsForLeague.CreateURL());
+        return ResponseEntity.ok(pastEventsForLeague.getListOfEvents());
+    }
+
+    @GetMapping("/api/LeagueFutureEvents/{LeagueID}")
+    public ResponseEntity<ArrayList<Event>> getListOfLeagueEvents(@PathVariable(value = "LeagueID") String LeagueID){
+        FutureEventsForLeague futureEventsForLeague = new FutureEventsForLeague(mongoDatabase, LeagueID);
+        futureEventsForLeague.APIListEvents(futureEventsForLeague.CreateURL());
+        return ResponseEntity.ok(futureEventsForLeague.getListOfEvents());
+    }
+
+
+
 //    @RequestMapping(value = "/")
 //    public String index() {
 //        return "index";
