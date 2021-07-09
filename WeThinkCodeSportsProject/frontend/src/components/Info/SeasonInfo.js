@@ -25,9 +25,8 @@ class SeasonInfo extends Component{
     }
 
     render() {
-        //Destructuring instead of using this.props.user.<variable> you can now use name | surname
         if (this.state.check){
-            return <Redirect push to={{pathname: "/teams",state: {sportID : this.props.user.idLeague, LeagueDescription : this.props.user.strDescriptionEN}}}/>
+            return <Redirect push to={{pathname: "/ListOfEvents",state: {Season : this.props.user.strSeason, LeagueId : this.props.LeagueId}}}/>
         }
         const {id} = this.props.user;
         return(
@@ -51,6 +50,7 @@ const buttons = {
 }
 //PropTypes
 SeasonInfo.propTypes = {
-    user : PropTypes.object.isRequired
+    user : PropTypes.object.isRequired,
+    LeagueId: PropTypes.any.isRequired
 }
 export  default  SeasonInfo;

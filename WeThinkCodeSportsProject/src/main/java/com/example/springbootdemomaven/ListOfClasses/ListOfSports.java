@@ -28,7 +28,6 @@ public class ListOfSports {
 
     public void ReadFromIni(){
         try {
-//            ClassLoader classloader = Thread.currentThread().getContextClassLoader();
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);

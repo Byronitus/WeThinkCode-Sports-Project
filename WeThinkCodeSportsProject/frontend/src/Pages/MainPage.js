@@ -19,27 +19,6 @@ export class MainPage extends Component {
             .then(response => this.setState({sports:response.data}))
     }
 
-    // //Deleting User
-    // removeUser = (id) =>{
-    //     axios.delete(`/user/${id}`)
-    //         .then(
-    //             response =>this.setState( //Updating UI
-    //                 {users: [...this.state.users.filter(
-    //                         user => user.id !== id
-    //                     )]}
-    //             )
-    //         );
-    // }
-    //
-    // addUser = (newUser) =>{
-    //     axios.post('/user/save',newUser)
-    //         .then(
-    //             (response) =>{
-    //                 console.log(response.data);
-    //                 this.setState({users:[...this.state.users,response.data]})
-    //             }
-    //         );
-    // }
 
     render() {
         return (

@@ -60,6 +60,11 @@ public class Player {
     public String strFanart4;
     public String strCreativeCommons;
     public String strLocked;
+    public String strPlayerImage;
+
+    public void setStrPlayerImage(String url){this.strPlayerImage = url;}
+
+    public void setStrThumb(String url){this.strThumb = url;}
 
     public String getStrLocked() {
         return strLocked;

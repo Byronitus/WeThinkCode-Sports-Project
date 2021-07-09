@@ -65,6 +65,8 @@ public class Event {
     public String strPostponed;
     public String strLocked;
 
+    public void setStrThumb(String url){this.strThumb = url;}
+
     public String getStrLocked() {
         return strLocked;
     }

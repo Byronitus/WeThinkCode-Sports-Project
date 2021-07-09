@@ -19,19 +19,24 @@ export class ListOfTeamPage extends Component {
         axios.get("/api/team/"+this.props.location.state.sportID)
             .then(response => this.setState({TeamList:response.data}))
         axios.get("/api/Seasons/"+this.props.location.state.sportID)
-            .then(response => this.setState({TeamListList : response.data }))
+            .then(response => this.setState({SeasonList : response.data }))
     }
 
 
         render() {
-        return (
-            <div className="container">
-                <Header/>
-                {this.props.location.state.LeagueDescription}
-                <TeamList teams={this.state.TeamList}/>
-                {/*<Season season={this.state.TeamList}/>*/}
-            </div>
-        );
+        if (this.state.TeamList.length > 0 && this.state.SeasonList.length > 0) {
+            // console.log(this.state.SeasonList)
+            return (
+                <div className="container">
+                    <Header/>
+                    {this.props.location.state.LeagueDescription}
+                    <TeamList teams={this.state.TeamList}/>
+                    <Season SeasonList={this.state.SeasonList} LeagueId={this.props.location.state.sportID}/>
+                </div>
+            );
+        }else{
+            return (<div> </div>);
+        }
     }
 }
 
