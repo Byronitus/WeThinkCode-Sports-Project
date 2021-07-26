@@ -9,6 +9,7 @@ import SearchPage from "../../../frontend/src/Pages/SearchPage";
 import ListOfEventsPage from "../../../frontend/src/Pages/ListOfEventsPage";
 import {EventPage} from "../../../frontend/src/Pages/EventPage";
 import PlayerPage from "../../../frontend/src/Pages/PlayerPage";
+import LiveScorePage from "../../../frontend/src/Pages/LiveScorePage";
 
 export class App extends Component {
     render() {
@@ -22,6 +23,7 @@ export class App extends Component {
                 <Route exact path='/ListOfEvents' component = {ListOfEventsPage}/>
                 <Route exact path='/Events' component = {EventPage}/>
                 <Route exact path='/Player' component = {PlayerPage}/>
+                <Route exact path='/LiveScore' component = {LiveScorePage}/>
             </Router>
         );
     }

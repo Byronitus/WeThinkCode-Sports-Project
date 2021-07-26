@@ -11,7 +11,6 @@ class ListOfPlayersInfo extends Component{
         this.setState({check:true});
     }
 
-    //dynamic Styling
     infoStyle = () =>{
         return {
             backgroundColor: (this.props.user.id %2) == 0? '#c8d4f7cc' :'',
@@ -45,16 +44,6 @@ class ListOfPlayersInfo extends Component{
     }
 }
 
-const iconUsername = {
-    display: 'flex',
-    justifyContent:'space-between',
-
-}
-
-const buttons = {
-    display: 'flex'
-}
-//PropTypes
 ListOfPlayersInfo.propTypes = {
     user : PropTypes.object.isRequired
 }

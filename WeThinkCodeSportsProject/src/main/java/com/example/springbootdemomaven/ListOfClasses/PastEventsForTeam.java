@@ -53,7 +53,7 @@ public class PastEventsForTeam {
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"PastTeamEvents",this.TeamID);
+                this.database.AddDocument(jsonObject,"PastTeamEvents",this.TeamID,"");
             }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}
@@ -63,8 +63,8 @@ public class PastEventsForTeam {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("results");
             for (int i = 0; i < jsonArray.size(); i++) {
-                JsonObject playerJson = (JsonObject) jsonArray.get(i);
-                Event event = this.gson.fromJson(playerJson, Event.class);
+                JsonObject eventJson = (JsonObject) jsonArray.get(i);
+                Event event = this.gson.fromJson(eventJson, Event.class);
 //                changeURL(player);
 //                checkImage(player);
                 this.ListOfEvents.add(event);

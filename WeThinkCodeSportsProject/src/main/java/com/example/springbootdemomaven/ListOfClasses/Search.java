@@ -89,6 +89,7 @@ public class Search {
                 Event event = this.gson.fromJson(teamJson, Event.class);
                 changeURLEvent(event);
                 checkImageEvent(event);
+                checkVideo(event);
                 arrayList.add(event);
             }
         }catch(Exception e){}
@@ -105,6 +106,13 @@ public class Search {
                 arrayList.add(player);
             }
         }catch(Exception e){}
+    }
+
+    public void checkVideo(Event event){
+        if (!(event.getStrVideo() == null)){
+            String VideoID = event.getStrVideo().substring(32);
+            event.setStrVideo(VideoID);
+        }
     }
 
     public void checkImageTeam(Team team){
@@ -157,17 +165,5 @@ public class Search {
         return this.UserSearchList;
     }
 
-    public void TestPrint(){
-        for (Team team:TeamList) {
-            System.out.println(team.getStrTeam());
-        }
-        for (Player player:PlayerList) {
-            System.out.println(player.getStrPlayer());
-        }
-        for (Event event:EventList){
-            System.out.println(event.getStrEvent());
-            System.out.println(event.getDateEvent());
-        }
-    }
 }
 

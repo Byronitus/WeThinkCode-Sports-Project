@@ -98,11 +98,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EventPage", function() { return EventPage; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_youtube__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-youtube */ "./node_modules/react-youtube/dist/index.esm.js");
 /* harmony import */ var _components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layouts/Header */ "./frontend/src/components/layouts/Header.js");
-/* harmony import */ var _components_Map_ListOfEvents__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map/ListOfEvents */ "./frontend/src/components/Map/ListOfEvents.js");
-/* harmony import */ var _components_Map_MultipleLines__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Map/MultipleLines */ "./frontend/src/components/Map/MultipleLines.js");
+/* harmony import */ var _components_Map_MultipleLines__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map/MultipleLines */ "./frontend/src/components/Map/MultipleLines.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -129,7 +127,6 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
-
 var EventPage = /*#__PURE__*/function (_Component) {
   _inherits(EventPage, _Component);
 
@@ -144,12 +141,38 @@ var EventPage = /*#__PURE__*/function (_Component) {
   _createClass(EventPage, [{
     key: "render",
     value: function render() {
-      var text = "Sport : " + this.props.location.state.sportType + "\nEvent : " + this.props.location.state.Event + "\nLeague : " + this.props.location.state.League + "\nRound : " + this.props.location.state.Round + "\nDate : " + this.props.location.state.Date + "\nVenue : " + this.props.location.state.Venue + "\nCountry : " + this.props.location.state.Country;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_MultipleLines__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        text: text
-      })));
+      var opts = {
+        height: '390',
+        width: '640',
+        playerVars: {
+          autoplay: 1
+        }
+      };
+      var text = "Sport : " + this.props.location.state.sportType + "\nEvent : " + this.props.location.state.Event + "\nLeague : " + this.props.location.state.League + "\nRound : " + this.props.location.state.Round + "\nDate : " + this.props.location.state.Date + "\nVenue : " + this.props.location.state.Venue + "\nCountry : " + this.props.location.state.Country + "\nDescription: " + this.props.location.state.Description;
+
+      if (this.props.location.state.Video == null) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_MultipleLines__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          text: text
+        })));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_MultipleLines__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          text: text
+        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_youtube__WEBPACK_IMPORTED_MODULE_1__["default"], {
+          videoId: this.props.location.state.Video,
+          opts: opts,
+          onReady: this._onReady
+        })));
+      }
+    }
+  }, {
+    key: "_onReady",
+    value: function _onReady(event) {
+      // access to player in all event handlers via event.target
+      event.target.pauseVideo();
     }
   }]);
 
@@ -180,6 +203,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Info_LeagueInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Info/LeagueInfo */ "./frontend/src/components/Info/LeagueInfo.js");
 /* harmony import */ var _components_layouts_Header__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/layouts/Header */ "./frontend/src/components/layouts/Header.js");
 /* harmony import */ var _components_Map_League__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Map/League */ "./frontend/src/components/Map/League.js");
+/* harmony import */ var _components_Map_ListOfLiveEvents__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Map/ListOfLiveEvents */ "./frontend/src/components/Map/ListOfLiveEvents.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -210,6 +234,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
 var LeaguesPage = /*#__PURE__*/function (_Component) {
   _inherits(LeaguesPage, _Component);
 
@@ -222,7 +247,8 @@ var LeaguesPage = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      leagueList: []
+      leagueList: [],
+      LiveEventsList: []
     };
     return _this;
   }
@@ -231,6 +257,14 @@ var LeaguesPage = /*#__PURE__*/function (_Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var _this2 = this;
+
+      if (this.props.location.state.sport == "Soccer") {
+        axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/ListOfLiveScores/' + this.props.location.state.sport).then(function (response) {
+          return _this2.setState({
+            LiveEventsList: response.data
+          });
+        });
+      }
 
       axios__WEBPACK_IMPORTED_MODULE_4___default.a.get('/api/league/' + this.props.location.state.sport).then(function (response) {
         return _this2.setState({
@@ -241,11 +275,23 @@ var LeaguesPage = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_6__["default"], null), this.props.location.state.Description, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_League__WEBPACK_IMPORTED_MODULE_7__["default"], {
-        leagueList: this.state.leagueList
-      }));
+      if (this.state.leagueList.length > 0 && this.state.LiveEventsList.length > 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_6__["default"], null), this.props.location.state.Description, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_League__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          leagueList: this.state.leagueList
+        }), "Live Events:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_ListOfLiveEvents__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          LiveEventList: this.state.LiveEventsList
+        }));
+      } else if (this.state.leagueList.length > 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_6__["default"], null), this.props.location.state.Description, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_League__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          leagueList: this.state.leagueList
+        }));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      }
     }
   }]);
 
@@ -362,6 +408,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Map_League__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map/League */ "./frontend/src/components/Map/League.js");
 /* harmony import */ var _components_Map_TeamList__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Map/TeamList */ "./frontend/src/components/Map/TeamList.js");
 /* harmony import */ var _components_Map_Season__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Map/Season */ "./frontend/src/components/Map/Season.js");
+/* harmony import */ var _components_Map_ListOfLiveEvents__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Map/ListOfLiveEvents */ "./frontend/src/components/Map/ListOfLiveEvents.js");
+/* harmony import */ var _components_Info_FixturesInfo__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/Info/FixturesInfo */ "./frontend/src/components/Info/FixturesInfo.js");
+/* harmony import */ var _components_Info_ResultsInfo__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/Info/ResultsInfo */ "./frontend/src/components/Info/ResultsInfo.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -390,6 +439,9 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+
+
 var ListOfTeamPage = /*#__PURE__*/function (_Component) {
   _inherits(ListOfTeamPage, _Component);
 
@@ -403,7 +455,10 @@ var ListOfTeamPage = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       TeamList: [],
-      SeasonList: []
+      SeasonList: [],
+      LiveEventList: [],
+      PastEvents: [],
+      FutureEvents: []
     };
     return _this;
   }
@@ -413,6 +468,16 @@ var ListOfTeamPage = /*#__PURE__*/function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
+      if (this.props.location.state.SportName == "Soccer") {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/LeagueLiveScore/' + this.props.location.state.sportID).then(function (response) {
+          return _this2.setState({
+            LiveEventList: response.data
+          });
+        });
+      }
+
+      console.log('/api/IncreaseCounter/' + this.props.location.state.LeagueName + "/" + this.props.location.state.SportName);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/IncreaseCounter/' + this.props.location.state.LeagueName + "/" + this.props.location.state.SportName);
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/team/" + this.props.location.state.sportID).then(function (response) {
         return _this2.setState({
           TeamList: response.data
@@ -423,19 +488,47 @@ var ListOfTeamPage = /*#__PURE__*/function (_Component) {
           SeasonList: response.data
         });
       });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/LeaguePastEvents/" + this.props.location.state.sportID).then(function (response) {
+        return _this2.setState({
+          PastEvents: response.data
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/LeagueFutureEvents/" + this.props.location.state.sportID).then(function (response) {
+        return _this2.setState({
+          FutureEvents: response.data
+        });
+      });
     }
   }, {
     key: "render",
     value: function render() {
-      if (this.state.TeamList.length > 0 && this.state.SeasonList.length > 0) {
-        // console.log(this.state.SeasonList)
+      if (this.state.TeamList.length > 0 && this.state.SeasonList.length > 0 && this.state.LiveEventList.length > 0) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "container"
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.props.location.state.LeagueDescription, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_TeamList__WEBPACK_IMPORTED_MODULE_4__["default"], {
           teams: this.state.TeamList
-        }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_Season__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }), "Seasons:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_Season__WEBPACK_IMPORTED_MODULE_5__["default"], {
           SeasonList: this.state.SeasonList,
           LeagueId: this.props.location.state.sportID
+        }), "Live Events:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_ListOfLiveEvents__WEBPACK_IMPORTED_MODULE_6__["default"], {
+          LiveEventList: this.state.LiveEventList
+        }), "Fixtures:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Info_FixturesInfo__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          user: this.state.FutureEvents
+        }), "Results:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Info_ResultsInfo__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          user: this.state.PastEvents
+        }));
+      } else if (this.state.TeamList.length > 0 && this.state.SeasonList.length > 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.props.location.state.LeagueDescription, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_TeamList__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          teams: this.state.TeamList
+        }), "Seasons:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_Season__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          SeasonList: this.state.SeasonList,
+          LeagueId: this.props.location.state.sportID
+        }), "Fixtures:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Info_FixturesInfo__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          user: this.state.FutureEvents
+        }), "Results:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Info_ResultsInfo__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          user: this.state.PastEvents
         }));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ");
@@ -446,6 +539,114 @@ var ListOfTeamPage = /*#__PURE__*/function (_Component) {
   return ListOfTeamPage;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 /* harmony default export */ __webpack_exports__["default"] = (ListOfTeamPage);
+
+/***/ }),
+
+/***/ "./frontend/src/Pages/LiveScorePage.js":
+/*!*********************************************!*\
+  !*** ./frontend/src/Pages/LiveScorePage.js ***!
+  \*********************************************/
+/*! exports provided: LiveScoresPage, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LiveScoresPage", function() { return LiveScoresPage; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layouts/Header */ "./frontend/src/components/layouts/Header.js");
+/* harmony import */ var _components_Map_League__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map/League */ "./frontend/src/components/Map/League.js");
+/* harmony import */ var _components_Map_ListOfLiveEvents__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Map/ListOfLiveEvents */ "./frontend/src/components/Map/ListOfLiveEvents.js");
+/* harmony import */ var _components_Map_LiveScore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Map/LiveScore */ "./frontend/src/components/Map/LiveScore.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+
+
+var LiveScoresPage = /*#__PURE__*/function (_Component) {
+  _inherits(LiveScoresPage, _Component);
+
+  var _super = _createSuper(LiveScoresPage);
+
+  function LiveScoresPage(props) {
+    var _this;
+
+    _classCallCheck(this, LiveScoresPage);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      LiveScore: []
+    };
+    return _this;
+  }
+
+  _createClass(LiveScoresPage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/LiveScore/' + this.props.location.state.EventID + '/' + this.props.location.state.LeagueID).then(function (response) {
+        return _this2.setState({
+          LiveScore: response.data
+        });
+      });
+      this.interval = setInterval(function () {
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/LiveScore/' + _this2.props.location.state.EventID + '/' + _this2.props.location.state.LeagueID).then(function (response) {
+          return _this2.setState({
+            LiveScore: response.data
+          });
+        });
+      }, 1000); // console.log(this.props.location.state.EventID)
+      // console.log(this.props.location.state.LeagueID)
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      clearInterval(this.interval);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      if (this.state.LiveScore.length > 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "container"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_LiveScore__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          LiveEventList: this.state.LiveScore
+        }));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Event not live");
+      }
+    }
+  }]);
+
+  return LiveScoresPage;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+/* harmony default export */ __webpack_exports__["default"] = (LiveScoresPage);
 
 /***/ }),
 
@@ -732,9 +933,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/layouts/Header */ "./frontend/src/components/layouts/Header.js");
-/* harmony import */ var _components_Map_TeamList__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map/TeamList */ "./frontend/src/components/Map/TeamList.js");
-/* harmony import */ var _components_Map_Sports__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Map/Sports */ "./frontend/src/components/Map/Sports.js");
-/* harmony import */ var _components_Map_ListOfPlayers__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Map/ListOfPlayers */ "./frontend/src/components/Map/ListOfPlayers.js");
+/* harmony import */ var _components_Map_ListOfPlayers__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Map/ListOfPlayers */ "./frontend/src/components/Map/ListOfPlayers.js");
+/* harmony import */ var _components_Info_FixturesInfo__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Info/FixturesInfo */ "./frontend/src/components/Info/FixturesInfo.js");
+/* harmony import */ var _components_Info_ResultsInfo__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/Info/ResultsInfo */ "./frontend/src/components/Info/ResultsInfo.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -775,7 +976,9 @@ var TeamsPage = /*#__PURE__*/function (_Component) {
 
     _this = _super.call(this, props);
     _this.state = {
-      PlayerList: []
+      PlayerList: [],
+      FutureEvents: [],
+      PastEvents: []
     };
     return _this;
   }
@@ -786,13 +989,19 @@ var TeamsPage = /*#__PURE__*/function (_Component) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/Players/" + this.props.location.state.TeamID).then(function (response) {
-        console.log(response.data);
-
         _this2.setState({
           PlayerList: response.data
         });
-
-        console.log(_this2.state.PlayerList);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/TeamUpcomingEvents/" + this.props.location.state.TeamID).then(function (response) {
+        _this2.setState({
+          FutureEvents: response.data
+        });
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/api/TeamPastEvents/" + this.props.location.state.TeamID).then(function (response) {
+        _this2.setState({
+          PastEvents: response.data
+        });
       });
     }
   }, {
@@ -801,8 +1010,12 @@ var TeamsPage = /*#__PURE__*/function (_Component) {
       if (this.state.PlayerList.length > 0) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "container"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.props.location.state.TeamDescription, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_ListOfPlayers__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_layouts_Header__WEBPACK_IMPORTED_MODULE_2__["default"], null), this.props.location.state.TeamDescription, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Map_ListOfPlayers__WEBPACK_IMPORTED_MODULE_3__["default"], {
           playerList: this.state.PlayerList
+        }), "Fixtures:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Info_FixturesInfo__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          user: this.state.FutureEvents
+        }), "Results:", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Info_ResultsInfo__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          user: this.state.PastEvents
         }));
       } else {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ");
@@ -816,10 +1029,10 @@ var TeamsPage = /*#__PURE__*/function (_Component) {
 
 /***/ }),
 
-/***/ "./frontend/src/components/Info/LeagueInfo.js":
-/*!****************************************************!*\
-  !*** ./frontend/src/components/Info/LeagueInfo.js ***!
-  \****************************************************/
+/***/ "./frontend/src/components/Info/FixturesInfo.js":
+/*!******************************************************!*\
+  !*** ./frontend/src/components/Info/FixturesInfo.js ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -827,17 +1040,18 @@ var TeamsPage = /*#__PURE__*/function (_Component) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_icons_AccountCircle__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/icons/AccountCircle */ "./node_modules/@material-ui/icons/AccountCircle.js");
-/* harmony import */ var _material_ui_icons_AccountCircle__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_AccountCircle__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/icons/Delete */ "./node_modules/@material-ui/icons/Delete.js");
-/* harmony import */ var _material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Delete__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/IconButton */ "./node_modules/@material-ui/core/esm/IconButton/index.js");
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _layouts_Header__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../layouts/Header */ "./frontend/src/components/layouts/Header.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_Table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Table */ "./node_modules/@material-ui/core/esm/Table/index.js");
+/* harmony import */ var _material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/TableBody */ "./node_modules/@material-ui/core/esm/TableBody/index.js");
+/* harmony import */ var _material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/TableCell */ "./node_modules/@material-ui/core/esm/TableCell/index.js");
+/* harmony import */ var _material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/index.js");
+/* harmony import */ var _material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/TableHead */ "./node_modules/@material-ui/core/esm/TableHead/index.js");
+/* harmony import */ var _material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/TableRow */ "./node_modules/@material-ui/core/esm/TableRow/index.js");
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -866,6 +1080,179 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
+
+
+
+
+
+
+
+
+var FixturesInfo = /*#__PURE__*/function (_Component) {
+  _inherits(FixturesInfo, _Component);
+
+  var _super = _createSuper(FixturesInfo);
+
+  function FixturesInfo() {
+    var _this;
+
+    _classCallCheck(this, FixturesInfo);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      check: false,
+      Description: "",
+      Video: "",
+      sportType: "",
+      Event: "",
+      League: "",
+      Round: "",
+      Date: "",
+      Venue: "",
+      Country: "",
+      Started: ""
+    });
+
+    return _this;
+  }
+
+  _createClass(FixturesInfo, [{
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var classes = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["makeStyles"])({
+        table: {
+          minWidth: 650
+        }
+      });
+
+      if (this.state.check) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+          push: true,
+          to: {
+            pathname: "/Events",
+            state: {
+              Description: this.state.Description,
+              sportType: this.state.sportType,
+              Event: this.state.Event,
+              League: this.state.League,
+              Round: this.state.Round,
+              Date: this.state.Date,
+              Venue: this.state.Venue,
+              Country: this.state.Country,
+              Started: this.state.Started
+            }
+          }
+        });
+      }
+
+      if (this.props.user.length > 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          component: _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_11__["default"]
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          className: classes.table,
+          "aria-label": "simple table",
+          style: {
+            background: "#808080"
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_9__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_10__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], null, "Name Of Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          align: "right"
+        }, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          align: "right"
+        }, "Time"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_6__["default"], null, this.props.user.map(function (fixture) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            key: fixture.strEvent,
+            style: {
+              background: "#808080"
+            }
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            component: "th",
+            scope: "row"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            color: "primary",
+            variant: "outlined",
+            onClick: function onClick() {
+              _this2.setState({
+                check: true,
+                Description: fixture.strDescriptionEN,
+                Video: fixture.strVideo,
+                sportType: fixture.strSport,
+                Event: fixture.strFilename,
+                League: fixture.strLeague,
+                Round: fixture.intRound,
+                Date: fixture.dateEvent,
+                Venue: fixture.strVenue,
+                Country: fixture.strCountry,
+                Started: fixture.strStatus
+              });
+            }
+          }, fixture.strEvent)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            align: "right"
+          }, fixture.dateEvent), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            align: "right"
+          }, fixture.strTimeLocal));
+        }))));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ");
+      }
+    }
+  }]);
+
+  return FixturesInfo;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+FixturesInfo.propTypes = {
+  user: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.array
+};
+/* harmony default export */ __webpack_exports__["default"] = (FixturesInfo);
+
+/***/ }),
+
+/***/ "./frontend/src/components/Info/LeagueInfo.js":
+/*!****************************************************!*\
+  !*** ./frontend/src/components/Info/LeagueInfo.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -916,15 +1303,18 @@ var LeagueInfo = /*#__PURE__*/function (_Component) {
   _createClass(LeagueInfo, [{
     key: "render",
     value: function render() {
-      //Destructuring instead of using this.props.user.<variable> you can now use name | surname
+      console.log(this.props.user.strSport);
+
       if (this.state.check) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Redirect"], {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["Redirect"], {
           push: true,
           to: {
             pathname: "/teams",
             state: {
               sportID: this.props.user.idLeague,
-              LeagueDescription: this.props.user.strDescriptionEN
+              LeagueDescription: this.props.user.strDescriptionEN,
+              LeagueName: this.props.user.strLeague,
+              SportName: this.props.user.strSport
             }
           }
         });
@@ -933,7 +1323,7 @@ var LeagueInfo = /*#__PURE__*/function (_Component) {
       var id = this.props.user.id;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         style: this.infoStyle()
-      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
         color: "primary",
         variant: "outlined",
         onClick: this.setCheck
@@ -1062,6 +1452,8 @@ var ListOfEventsInfo = /*#__PURE__*/function (_Component) {
           to: {
             pathname: "/Events",
             state: {
+              Description: this.props.user.strDescriptionEN,
+              Video: this.props.user.strVideo,
               sportType: this.props.user.strSport,
               Event: this.props.user.strFilename,
               League: this.props.user.strLeague,
@@ -1098,6 +1490,132 @@ var ListOfEventsInfo = /*#__PURE__*/function (_Component) {
   return ListOfEventsInfo;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
 
+ListOfEventsInfo.propTypes = {
+  user: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (ListOfEventsInfo);
+
+/***/ }),
+
+/***/ "./frontend/src/components/Info/ListOfLiveEventsInfo.js":
+/*!**************************************************************!*\
+  !*** ./frontend/src/components/Info/ListOfLiveEventsInfo.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var _material_ui_core_Box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/Box */ "./node_modules/@material-ui/core/esm/Box/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+var ListOfLiveEvents = /*#__PURE__*/function (_Component) {
+  _inherits(ListOfLiveEvents, _Component);
+
+  var _super = _createSuper(ListOfLiveEvents);
+
+  function ListOfLiveEvents() {
+    var _this;
+
+    _classCallCheck(this, ListOfLiveEvents);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      check: false
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setCheck", function () {
+      _this.setState({
+        check: true
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "infoStyle", function () {
+      return {
+        backgroundColor: _this.props.user.id % 2 == 0 ? '#c8d4f7cc' : '',
+        padding: '10px',
+        borderBottom: '1px #ccc dotted',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        justifyItems: 'flex-start'
+      };
+    });
+
+    return _this;
+  }
+
+  _createClass(ListOfLiveEvents, [{
+    key: "render",
+    value: function render() {
+      if (this.state.check) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+          push: true,
+          to: {
+            pathname: "/LiveScore",
+            state: {
+              LeagueID: this.props.user.idLeague,
+              EventID: this.props.user.idEvent
+            }
+          }
+        });
+      }
+
+      var id = this.props.user.id;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: this.infoStyle()
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Box__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        textAlign: "center"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        color: "primary",
+        variant: "outlined",
+        onClick: this.setCheck
+      }, this.props.user.strHomeTeam, " vs ", this.props.user.strAwayTeam)));
+    }
+  }]);
+
+  return ListOfLiveEvents;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
 var iconUsername = {
   display: 'flex',
   justifyContent: 'space-between'
@@ -1106,10 +1624,10 @@ var buttons = {
   display: 'flex'
 }; //PropTypes
 
-ListOfEventsInfo.propTypes = {
-  user: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired
+ListOfLiveEvents.propTypes = {
+  user: prop_types__WEBPACK_IMPORTED_MODULE_4___default.a.object.isRequired
 };
-/* harmony default export */ __webpack_exports__["default"] = (ListOfEventsInfo);
+/* harmony default export */ __webpack_exports__["default"] = (ListOfLiveEvents);
 
 /***/ }),
 
@@ -1258,6 +1776,350 @@ ListOfPlayersInfo.propTypes = {
 
 /***/ }),
 
+/***/ "./frontend/src/components/Info/LiveScoreInfo.js":
+/*!*******************************************************!*\
+  !*** ./frontend/src/components/Info/LiveScoreInfo.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+var LiveScoreInfo = /*#__PURE__*/function (_Component) {
+  _inherits(LiveScoreInfo, _Component);
+
+  var _super = _createSuper(LiveScoreInfo);
+
+  function LiveScoreInfo() {
+    var _this;
+
+    _classCallCheck(this, LiveScoreInfo);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      check: false
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "setCheck", function () {
+      _this.setState({
+        check: true
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "infoStyle", function () {
+      return {
+        backgroundColor: _this.props.user.id % 2 == 0 ? '#c8d4f7cc' : '',
+        padding: '10px',
+        borderBottom: '1px #ccc dotted',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        justifyItems: 'flex-start'
+      };
+    });
+
+    return _this;
+  }
+
+  _createClass(LiveScoreInfo, [{
+    key: "render",
+    value: function render() {
+      var textStyle = {
+        fontSize: 26,
+        color: "#b80e0e",
+        textAlign: "center",
+        paddingTop: "100px",
+        justifyContent: 'center'
+      };
+
+      if (this.state.check) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
+          push: true,
+          to: {
+            pathname: "/league",
+            state: {
+              sport: this.props.user.strSport,
+              Description: this.props.user.strSportDescription
+            }
+          }
+        });
+      }
+
+      var id = this.props.user.id;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        style: this.infoStyle()
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "shoe-container",
+        style: {
+          justifyContent: 'center',
+          alignItems: 'center'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.props.user.strHomeTeamBadge,
+        alt: ""
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.strHomeTeam), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.intHomeScore)), "vs", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "shoe-container",
+        style: {
+          justifyContent: 'center',
+          alignItems: 'center'
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: this.props.user.strAwayTeamBadge,
+        alt: ""
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.strAwayTeam), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.intAwayScore))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        style: textStyle
+      }, this.props.user.strProgress, "'"));
+    }
+  }]);
+
+  return LiveScoreInfo;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+var iconUsername = {
+  display: 'flex',
+  justifyContent: 'space-between'
+};
+var buttons = {
+  display: 'flex'
+}; //PropTypes
+
+LiveScoreInfo.propTypes = {
+  user: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (LiveScoreInfo);
+
+/***/ }),
+
+/***/ "./frontend/src/components/Info/ResultsInfo.js":
+/*!*****************************************************!*\
+  !*** ./frontend/src/components/Info/ResultsInfo.js ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/index.js");
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
+/* harmony import */ var _material_ui_core_Table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/Table */ "./node_modules/@material-ui/core/esm/Table/index.js");
+/* harmony import */ var _material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/TableHead */ "./node_modules/@material-ui/core/esm/TableHead/index.js");
+/* harmony import */ var _material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/TableRow */ "./node_modules/@material-ui/core/esm/TableRow/index.js");
+/* harmony import */ var _material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/TableCell */ "./node_modules/@material-ui/core/esm/TableCell/index.js");
+/* harmony import */ var _material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/TableBody */ "./node_modules/@material-ui/core/esm/TableBody/index.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_11__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var ResultsInfo = /*#__PURE__*/function (_Component) {
+  _inherits(ResultsInfo, _Component);
+
+  var _super = _createSuper(ResultsInfo);
+
+  function ResultsInfo() {
+    var _this;
+
+    _classCallCheck(this, ResultsInfo);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _super.call.apply(_super, [this].concat(args));
+
+    _defineProperty(_assertThisInitialized(_this), "state", {
+      check: false,
+      Description: "",
+      Video: "",
+      sportType: "",
+      Event: "",
+      League: "",
+      Round: "",
+      Date: "",
+      Venue: "",
+      Country: "",
+      Started: ""
+    });
+
+    return _this;
+  }
+
+  _createClass(ResultsInfo, [{
+    key: "render",
+    value: // setCheck = () => {
+    //     this.setState({check:true});
+    // }
+    function render() {
+      var _this2 = this;
+
+      var classes = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["makeStyles"])({
+        table: {
+          minWidth: 650
+        }
+      });
+
+      if (this.state.check) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+          push: true,
+          to: {
+            pathname: "/Events",
+            state: {
+              Description: this.state.Description,
+              Video: this.state.Video,
+              sportType: this.state.sportType,
+              Event: this.state.Event,
+              League: this.state.League,
+              Round: this.state.Round,
+              Date: this.state.Date,
+              Venue: this.state.Venue,
+              Country: this.state.Country,
+              Started: this.state.Started
+            }
+          }
+        });
+      }
+
+      if (this.props.user.length > 0) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableContainer__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          component: _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_4__["default"]
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Table__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          className: classes.table,
+          "aria-label": "simple table",
+          style: {
+            background: "#808080"
+          }
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableHead__WEBPACK_IMPORTED_MODULE_6__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__["default"], null, "Name Of Event"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          align: "right"
+        }, "Date"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__["default"], {
+          align: "right"
+        }, "Round"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableBody__WEBPACK_IMPORTED_MODULE_9__["default"], null, this.props.user.map(function (result) {
+          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableRow__WEBPACK_IMPORTED_MODULE_7__["default"], {
+            key: result.strEvent,
+            style: {
+              background: "#808080"
+            }
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            component: "th",
+            scope: "row"
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_10__["default"], {
+            color: "primary",
+            variant: "outlined",
+            onClick: function onClick() {
+              _this2.setState({
+                check: true,
+                Description: result.strDescriptionEN,
+                Video: result.strVideo,
+                sportType: result.strSport,
+                Event: result.strFilename,
+                League: result.strLeague,
+                Round: result.intRound,
+                Date: result.dateEvent,
+                Venue: result.strVenue,
+                Country: result.strCountry,
+                Started: result.strStatus
+              });
+            }
+          }, result.strEvent)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            align: "right"
+          }, result.dateEvent), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_TableCell__WEBPACK_IMPORTED_MODULE_8__["default"], {
+            align: "right"
+          }, result.intRound));
+        }))));
+      } else {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, " ");
+      }
+    }
+  }]);
+
+  return ResultsInfo;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+ResultsInfo.propTypes = {
+  user: prop_types__WEBPACK_IMPORTED_MODULE_11___default.a.array
+};
+/* harmony default export */ __webpack_exports__["default"] = (ResultsInfo);
+
+/***/ }),
+
 /***/ "./frontend/src/components/Info/SearchInfo.js":
 /*!****************************************************!*\
   !*** ./frontend/src/components/Info/SearchInfo.js ***!
@@ -1398,6 +2260,8 @@ var SearchInfo = /*#__PURE__*/function (_Component) {
           to: {
             pathname: "/Events",
             state: {
+              Description: this.props.user.strDescriptionEN,
+              Video: this.props.user.strVideo,
               sportType: this.props.user.strSport,
               Event: this.props.user.strFilename,
               League: this.props.user.strLeague,
@@ -1716,7 +2580,6 @@ var SportInfo = /*#__PURE__*/function (_Component) {
   _createClass(SportInfo, [{
     key: "render",
     value: function render() {
-      //Destructuring instead of using this.props.user.<variable> you can now use name | surname
       if (this.state.check) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_7__["Redirect"], {
           push: true,
@@ -1856,9 +2719,7 @@ var TeamListInfo = /*#__PURE__*/function (_Component) {
   _createClass(TeamListInfo, [{
     key: "render",
     value: function render() {
-      //Destructuring instead of using this.props.user.<variable> you can now use name | surname
       if (this.state.check) {
-        console.log(this.props.user.idTeam);
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
           push: true,
           to: {
@@ -1893,14 +2754,6 @@ var TeamListInfo = /*#__PURE__*/function (_Component) {
 
   return TeamListInfo;
 }(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
-
-var iconUsername = {
-  display: 'flex',
-  justifyContent: 'space-between'
-};
-var buttons = {
-  display: 'flex'
-}; //PropTypes
 
 TeamListInfo.propTypes = {
   user: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired
@@ -2055,6 +2908,79 @@ ListOfEvents.propTypes = {
 
 /***/ }),
 
+/***/ "./frontend/src/components/Map/ListOfLiveEvents.js":
+/*!*********************************************************!*\
+  !*** ./frontend/src/components/Map/ListOfLiveEvents.js ***!
+  \*********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Info_ListOfLiveEventsInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Info/ListOfLiveEventsInfo */ "./frontend/src/components/Info/ListOfLiveEventsInfo.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var ListOfLiveEvents = /*#__PURE__*/function (_Component) {
+  _inherits(ListOfLiveEvents, _Component);
+
+  var _super = _createSuper(ListOfLiveEvents);
+
+  function ListOfLiveEvents() {
+    _classCallCheck(this, ListOfLiveEvents);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(ListOfLiveEvents, [{
+    key: "render",
+    value: function render() {
+      return this.props.LiveEventList.map(function (liveEvent) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Info_ListOfLiveEventsInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          user: liveEvent,
+          key: liveEvent.id
+        });
+      });
+    }
+  }]);
+
+  return ListOfLiveEvents;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+ListOfLiveEvents.propTypes = {
+  LiveEventList: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.array
+};
+/* harmony default export */ __webpack_exports__["default"] = (ListOfLiveEvents);
+
+/***/ }),
+
 /***/ "./frontend/src/components/Map/ListOfPlayers.js":
 /*!******************************************************!*\
   !*** ./frontend/src/components/Map/ListOfPlayers.js ***!
@@ -2125,6 +3051,79 @@ ListOfPlayers.propTypes = {
   playerList: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.array
 };
 /* harmony default export */ __webpack_exports__["default"] = (ListOfPlayers);
+
+/***/ }),
+
+/***/ "./frontend/src/components/Map/LiveScore.js":
+/*!**************************************************!*\
+  !*** ./frontend/src/components/Map/LiveScore.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Info_LiveScoreInfo__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Info/LiveScoreInfo */ "./frontend/src/components/Info/LiveScoreInfo.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+
+
+
+var LiveScore = /*#__PURE__*/function (_Component) {
+  _inherits(LiveScore, _Component);
+
+  var _super = _createSuper(LiveScore);
+
+  function LiveScore() {
+    _classCallCheck(this, LiveScore);
+
+    return _super.apply(this, arguments);
+  }
+
+  _createClass(LiveScore, [{
+    key: "render",
+    value: function render() {
+      return this.props.LiveEventList.map(function (LiveScores) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Info_LiveScoreInfo__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          user: LiveScores,
+          key: LiveScores.id
+        });
+      });
+    }
+  }]);
+
+  return LiveScore;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+LiveScore.propTypes = {
+  LiveEventList: prop_types__WEBPACK_IMPORTED_MODULE_1___default.a.array.isRequired
+};
+/* harmony default export */ __webpack_exports__["default"] = (LiveScore);
 
 /***/ }),
 
@@ -3207,6 +4206,50 @@ function _typeof(obj) {
 
 module.exports = _typeof;
 module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Box/Box.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Box/Box.js ***!
+  \*******************************************************/
+/*! exports provided: styleFunction, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styleFunction", function() { return styleFunction; });
+/* harmony import */ var _material_ui_system__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @material-ui/system */ "./node_modules/@material-ui/system/esm/index.js");
+/* harmony import */ var _styles_styled__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../styles/styled */ "./node_modules/@material-ui/core/esm/styles/styled.js");
+
+
+var styleFunction = Object(_material_ui_system__WEBPACK_IMPORTED_MODULE_0__["css"])(Object(_material_ui_system__WEBPACK_IMPORTED_MODULE_0__["compose"])(_material_ui_system__WEBPACK_IMPORTED_MODULE_0__["borders"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["display"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["flexbox"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["grid"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["positions"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["palette"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["shadows"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["sizing"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["spacing"], _material_ui_system__WEBPACK_IMPORTED_MODULE_0__["typography"]));
+/**
+ * @ignore - do not document.
+ */
+
+var Box = Object(_styles_styled__WEBPACK_IMPORTED_MODULE_1__["default"])('div')(styleFunction, {
+  name: 'MuiBox'
+});
+/* harmony default export */ __webpack_exports__["default"] = (Box);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Box/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Box/index.js ***!
+  \*********************************************************/
+/*! exports provided: default, styleFunction */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Box__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Box */ "./node_modules/@material-ui/core/esm/Box/Box.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _Box__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "styleFunction", function() { return _Box__WEBPACK_IMPORTED_MODULE_0__["styleFunction"]; });
+
+
 
 /***/ }),
 
@@ -4921,6 +5964,157 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/@material-ui/core/esm/Paper/Paper.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Paper/Paper.js ***!
+  \***********************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _material_ui_utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/utils */ "./node_modules/@material-ui/utils/esm/index.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+
+
+
+
+
+
+
+var styles = function styles(theme) {
+  var elevations = {};
+  theme.shadows.forEach(function (shadow, index) {
+    elevations["elevation".concat(index)] = {
+      boxShadow: shadow
+    };
+  });
+  return Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    /* Styles applied to the root element. */
+    root: {
+      backgroundColor: theme.palette.background.paper,
+      color: theme.palette.text.primary,
+      transition: theme.transitions.create('box-shadow')
+    },
+
+    /* Styles applied to the root element if `square={false}`. */
+    rounded: {
+      borderRadius: theme.shape.borderRadius
+    },
+
+    /* Styles applied to the root element if `variant="outlined"`. */
+    outlined: {
+      border: "1px solid ".concat(theme.palette.divider)
+    }
+  }, elevations);
+};
+var Paper = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function Paper(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'div' : _props$component,
+      _props$square = props.square,
+      square = _props$square === void 0 ? false : _props$square,
+      _props$elevation = props.elevation,
+      elevation = _props$elevation === void 0 ? 1 : _props$elevation,
+      _props$variant = props.variant,
+      variant = _props$variant === void 0 ? 'elevation' : _props$variant,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(props, ["classes", "className", "component", "square", "elevation", "variant"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className, variant === 'outlined' ? classes.outlined : classes["elevation".concat(elevation)], !square && classes.rounded),
+    ref: ref
+  }, other));
+});
+ true ? Paper.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * The content of the component.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType,
+
+  /**
+   * Shadow depth, corresponds to `dp` in the spec.
+   * It accepts values between 0 and 24 inclusive.
+   */
+  elevation: Object(_material_ui_utils__WEBPACK_IMPORTED_MODULE_5__["chainPropTypes"])(prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.number, function (props) {
+    var classes = props.classes,
+        elevation = props.elevation; // in case `withStyles` fails to inject we don't need this warning
+
+    if (classes === undefined) {
+      return null;
+    }
+
+    if (elevation != null && classes["elevation".concat(elevation)] === undefined) {
+      return new Error("Material-UI: This elevation `".concat(elevation, "` is not implemented."));
+    }
+
+    return null;
+  }),
+
+  /**
+   * If `true`, rounded corners are disabled.
+   */
+  square: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
+
+  /**
+   * The variant to use.
+   */
+  variant: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['elevation', 'outlined'])
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_6__["default"])(styles, {
+  name: 'MuiPaper'
+})(Paper));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Paper/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Paper/index.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Paper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Paper */ "./node_modules/@material-ui/core/esm/Paper/Paper.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _Paper__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js":
 /*!***************************************************************!*\
   !*** ./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js ***!
@@ -5116,6 +6310,903 @@ SvgIcon.muiName = 'SvgIcon';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SvgIcon__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SvgIcon */ "./node_modules/@material-ui/core/esm/SvgIcon/SvgIcon.js");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _SvgIcon__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Table/Table.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Table/Table.js ***!
+  \***********************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+/* harmony import */ var _TableContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./TableContext */ "./node_modules/@material-ui/core/esm/Table/TableContext.js");
+
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      display: 'table',
+      width: '100%',
+      borderCollapse: 'collapse',
+      borderSpacing: 0,
+      '& caption': Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, theme.typography.body2, {
+        padding: theme.spacing(2),
+        color: theme.palette.text.secondary,
+        textAlign: 'left',
+        captionSide: 'bottom'
+      })
+    },
+
+    /* Styles applied to the root element if `stickyHeader={true}`. */
+    stickyHeader: {
+      borderCollapse: 'separate'
+    }
+  };
+};
+var defaultComponent = 'table';
+var Table = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function Table(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? defaultComponent : _props$component,
+      _props$padding = props.padding,
+      padding = _props$padding === void 0 ? 'default' : _props$padding,
+      _props$size = props.size,
+      size = _props$size === void 0 ? 'medium' : _props$size,
+      _props$stickyHeader = props.stickyHeader,
+      stickyHeader = _props$stickyHeader === void 0 ? false : _props$stickyHeader,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(props, ["classes", "className", "component", "padding", "size", "stickyHeader"]);
+
+  var table = react__WEBPACK_IMPORTED_MODULE_2__["useMemo"](function () {
+    return {
+      padding: padding,
+      size: size,
+      stickyHeader: stickyHeader
+    };
+  }, [padding, size, stickyHeader]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_TableContext__WEBPACK_IMPORTED_MODULE_6__["default"].Provider, {
+    value: table
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    role: Component === defaultComponent ? null : 'table',
+    ref: ref,
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className, stickyHeader && classes.stickyHeader)
+  }, other)));
+});
+ true ? Table.propTypes = {
+  /**
+   * The content of the table, normally `TableHead` and `TableBody`.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node.isRequired,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType,
+
+  /**
+   * Allows TableCells to inherit padding of the Table.
+   */
+  padding: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['default', 'checkbox', 'none']),
+
+  /**
+   * Allows TableCells to inherit size of the Table.
+   */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['small', 'medium']),
+
+  /**
+   * Set the header sticky.
+   *
+   * ⚠️ It doesn't work with IE 11.
+   */
+  stickyHeader: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiTable'
+})(Table));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Table/TableContext.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Table/TableContext.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * @ignore - internal component.
+ */
+
+var TableContext = react__WEBPACK_IMPORTED_MODULE_0__["createContext"]();
+
+if (true) {
+  TableContext.displayName = 'TableContext';
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (TableContext);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Table/Tablelvl2Context.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Table/Tablelvl2Context.js ***!
+  \**********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * @ignore - internal component.
+ */
+
+var Tablelvl2Context = react__WEBPACK_IMPORTED_MODULE_0__["createContext"]();
+
+if (true) {
+  Tablelvl2Context.displayName = 'Tablelvl2Context';
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Tablelvl2Context);
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/Table/index.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/Table/index.js ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table */ "./node_modules/@material-ui/core/esm/Table/Table.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _Table__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableBody/TableBody.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableBody/TableBody.js ***!
+  \*******************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@material-ui/core/esm/Table/Tablelvl2Context.js");
+
+
+
+
+
+
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    display: 'table-row-group'
+  }
+};
+var tablelvl2 = {
+  variant: 'body'
+};
+var defaultComponent = 'tbody';
+var TableBody = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function TableBody(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? defaultComponent : _props$component,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "className", "component"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_6__["default"].Provider, {
+    value: tablelvl2
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className),
+    ref: ref,
+    role: Component === defaultComponent ? null : 'rowgroup'
+  }, other)));
+});
+ true ? TableBody.propTypes = {
+  /**
+   * The content of the component, normally `TableRow`.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiTableBody'
+})(TableBody));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableBody/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableBody/index.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TableBody__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableBody */ "./node_modules/@material-ui/core/esm/TableBody/TableBody.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _TableBody__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableCell/TableCell.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableCell/TableCell.js ***!
+  \*******************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+/* harmony import */ var _utils_capitalize__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/capitalize */ "./node_modules/@material-ui/core/esm/utils/capitalize.js");
+/* harmony import */ var _styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/colorManipulator */ "./node_modules/@material-ui/core/esm/styles/colorManipulator.js");
+/* harmony import */ var _Table_TableContext__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../Table/TableContext */ "./node_modules/@material-ui/core/esm/Table/TableContext.js");
+/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@material-ui/core/esm/Table/Tablelvl2Context.js");
+
+
+
+
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({}, theme.typography.body2, {
+      display: 'table-cell',
+      verticalAlign: 'inherit',
+      // Workaround for a rendering bug with spanned columns in Chrome 62.0.
+      // Removes the alpha (sets it to 1), and lightens or darkens the theme color.
+      borderBottom: "1px solid\n    ".concat(theme.palette.type === 'light' ? Object(_styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__["lighten"])(Object(_styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__["fade"])(theme.palette.divider, 1), 0.88) : Object(_styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__["darken"])(Object(_styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__["fade"])(theme.palette.divider, 1), 0.68)),
+      textAlign: 'left',
+      padding: 16
+    }),
+
+    /* Styles applied to the root element if `variant="head"` or `context.table.head`. */
+    head: {
+      color: theme.palette.text.primary,
+      lineHeight: theme.typography.pxToRem(24),
+      fontWeight: theme.typography.fontWeightMedium
+    },
+
+    /* Styles applied to the root element if `variant="body"` or `context.table.body`. */
+    body: {
+      color: theme.palette.text.primary
+    },
+
+    /* Styles applied to the root element if `variant="footer"` or `context.table.footer`. */
+    footer: {
+      color: theme.palette.text.secondary,
+      lineHeight: theme.typography.pxToRem(21),
+      fontSize: theme.typography.pxToRem(12)
+    },
+
+    /* Styles applied to the root element if `size="small"`. */
+    sizeSmall: {
+      padding: '6px 24px 6px 16px',
+      '&:last-child': {
+        paddingRight: 16
+      },
+      '&$paddingCheckbox': {
+        width: 24,
+        // prevent the checkbox column from growing
+        padding: '0 12px 0 16px',
+        '&:last-child': {
+          paddingLeft: 12,
+          paddingRight: 16
+        },
+        '& > *': {
+          padding: 0
+        }
+      }
+    },
+
+    /* Styles applied to the root element if `padding="checkbox"`. */
+    paddingCheckbox: {
+      width: 48,
+      // prevent the checkbox column from growing
+      padding: '0 0 0 4px',
+      '&:last-child': {
+        paddingLeft: 0,
+        paddingRight: 4
+      }
+    },
+
+    /* Styles applied to the root element if `padding="none"`. */
+    paddingNone: {
+      padding: 0,
+      '&:last-child': {
+        padding: 0
+      }
+    },
+
+    /* Styles applied to the root element if `align="left"`. */
+    alignLeft: {
+      textAlign: 'left'
+    },
+
+    /* Styles applied to the root element if `align="center"`. */
+    alignCenter: {
+      textAlign: 'center'
+    },
+
+    /* Styles applied to the root element if `align="right"`. */
+    alignRight: {
+      textAlign: 'right',
+      flexDirection: 'row-reverse'
+    },
+
+    /* Styles applied to the root element if `align="justify"`. */
+    alignJustify: {
+      textAlign: 'justify'
+    },
+
+    /* Styles applied to the root element if `context.table.stickyHeader={true}`. */
+    stickyHeader: {
+      position: 'sticky',
+      top: 0,
+      left: 0,
+      zIndex: 2,
+      backgroundColor: theme.palette.background.default
+    }
+  };
+};
+/**
+ * The component renders a `<th>` element when the parent context is a header
+ * or otherwise a `<td>` element.
+ */
+
+var TableCell = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function TableCell(props, ref) {
+  var _props$align = props.align,
+      align = _props$align === void 0 ? 'inherit' : _props$align,
+      classes = props.classes,
+      className = props.className,
+      component = props.component,
+      paddingProp = props.padding,
+      scopeProp = props.scope,
+      sizeProp = props.size,
+      sortDirection = props.sortDirection,
+      variantProp = props.variant,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_0__["default"])(props, ["align", "classes", "className", "component", "padding", "scope", "size", "sortDirection", "variant"]);
+
+  var table = react__WEBPACK_IMPORTED_MODULE_2__["useContext"](_Table_TableContext__WEBPACK_IMPORTED_MODULE_8__["default"]);
+  var tablelvl2 = react__WEBPACK_IMPORTED_MODULE_2__["useContext"](_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_9__["default"]);
+  var isHeadCell = tablelvl2 && tablelvl2.variant === 'head';
+  var role;
+  var Component;
+
+  if (component) {
+    Component = component;
+    role = isHeadCell ? 'columnheader' : 'cell';
+  } else {
+    Component = isHeadCell ? 'th' : 'td';
+  }
+
+  var scope = scopeProp;
+
+  if (!scope && isHeadCell) {
+    scope = 'col';
+  }
+
+  var padding = paddingProp || (table && table.padding ? table.padding : 'default');
+  var size = sizeProp || (table && table.size ? table.size : 'medium');
+  var variant = variantProp || tablelvl2 && tablelvl2.variant;
+  var ariaSort = null;
+
+  if (sortDirection) {
+    ariaSort = sortDirection === 'asc' ? 'ascending' : 'descending';
+  }
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_1__["default"])({
+    ref: ref,
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, classes[variant], className, align !== 'inherit' && classes["align".concat(Object(_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__["default"])(align))], padding !== 'default' && classes["padding".concat(Object(_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__["default"])(padding))], size !== 'medium' && classes["size".concat(Object(_utils_capitalize__WEBPACK_IMPORTED_MODULE_6__["default"])(size))], variant === 'head' && table && table.stickyHeader && classes.stickyHeader),
+    "aria-sort": ariaSort,
+    role: role,
+    scope: scope
+  }, other));
+});
+ true ? TableCell.propTypes = {
+  // ----------------------------- Warning --------------------------------
+  // | These PropTypes are generated from the TypeScript type definitions |
+  // |     To update them edit the d.ts file and run "yarn proptypes"     |
+  // ----------------------------------------------------------------------
+
+  /**
+   * Set the text-align on the table cell content.
+   *
+   * Monetary or generally number fields **should be right aligned** as that allows
+   * you to add them up quickly in your head without having to worry about decimals.
+   */
+  align: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['center', 'inherit', 'justify', 'left', 'right']),
+
+  /**
+   * The table cell contents.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType,
+
+  /**
+   * Sets the padding applied to the cell.
+   * By default, the Table parent component set the value (`default`).
+   */
+  padding: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['checkbox', 'default', 'none']),
+
+  /**
+   * Set scope attribute.
+   */
+  scope: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * Specify the size of the cell.
+   * By default, the Table parent component set the value (`medium`).
+   */
+  size: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['medium', 'small']),
+
+  /**
+   * Set aria-sort direction.
+   */
+  sortDirection: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['asc', 'desc', false]),
+
+  /**
+   * Specify the cell type.
+   * By default, the TableHead, TableBody or TableFooter parent component set the value.
+   */
+  variant: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.oneOf(['body', 'footer', 'head'])
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiTableCell'
+})(TableCell));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableCell/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableCell/index.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TableCell__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableCell */ "./node_modules/@material-ui/core/esm/TableCell/TableCell.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _TableCell__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableContainer/TableContainer.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableContainer/TableContainer.js ***!
+  \*****************************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+
+
+
+
+
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    width: '100%',
+    overflowX: 'auto'
+  }
+};
+var TableContainer = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function TableContainer(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? 'div' : _props$component,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "className", "component"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    ref: ref,
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className)
+  }, other));
+});
+ true ? TableContainer.propTypes = {
+  /**
+   * The table itself, normally `<Table />`
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiTableContainer'
+})(TableContainer));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableContainer/index.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableContainer/index.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TableContainer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableContainer */ "./node_modules/@material-ui/core/esm/TableContainer/TableContainer.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _TableContainer__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableHead/TableHead.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableHead/TableHead.js ***!
+  \*******************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@material-ui/core/esm/Table/Tablelvl2Context.js");
+
+
+
+
+
+
+
+var styles = {
+  /* Styles applied to the root element. */
+  root: {
+    display: 'table-header-group'
+  }
+};
+var tablelvl2 = {
+  variant: 'head'
+};
+var defaultComponent = 'thead';
+var TableHead = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function TableHead(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? defaultComponent : _props$component,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "className", "component"]);
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_6__["default"].Provider, {
+    value: tablelvl2
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className),
+    ref: ref,
+    role: Component === defaultComponent ? null : 'rowgroup'
+  }, other)));
+});
+ true ? TableHead.propTypes = {
+  /**
+   * The content of the component, normally `TableRow`.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiTableHead'
+})(TableHead));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableHead/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableHead/index.js ***!
+  \***************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TableHead__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableHead */ "./node_modules/@material-ui/core/esm/TableHead/TableHead.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _TableHead__WEBPACK_IMPORTED_MODULE_0__["default"]; });
+
+
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableRow/TableRow.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableRow/TableRow.js ***!
+  \*****************************************************************/
+/*! exports provided: styles, default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "styles", function() { return styles; });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/esm/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var clsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! clsx */ "./node_modules/clsx/dist/clsx.m.js");
+/* harmony import */ var _styles_withStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../styles/withStyles */ "./node_modules/@material-ui/core/esm/styles/withStyles.js");
+/* harmony import */ var _Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Table/Tablelvl2Context */ "./node_modules/@material-ui/core/esm/Table/Tablelvl2Context.js");
+/* harmony import */ var _styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../styles/colorManipulator */ "./node_modules/@material-ui/core/esm/styles/colorManipulator.js");
+
+
+
+
+
+
+
+
+var styles = function styles(theme) {
+  return {
+    /* Styles applied to the root element. */
+    root: {
+      color: 'inherit',
+      display: 'table-row',
+      verticalAlign: 'middle',
+      // We disable the focus ring for mouse, touch and keyboard users.
+      outline: 0,
+      '&$hover:hover': {
+        backgroundColor: theme.palette.action.hover
+      },
+      '&$selected, &$selected:hover': {
+        backgroundColor: Object(_styles_colorManipulator__WEBPACK_IMPORTED_MODULE_7__["fade"])(theme.palette.secondary.main, theme.palette.action.selectedOpacity)
+      }
+    },
+
+    /* Pseudo-class applied to the root element if `selected={true}`. */
+    selected: {},
+
+    /* Pseudo-class applied to the root element if `hover={true}`. */
+    hover: {},
+
+    /* Styles applied to the root element if table variant="head". */
+    head: {},
+
+    /* Styles applied to the root element if table variant="footer". */
+    footer: {}
+  };
+};
+var defaultComponent = 'tr';
+/**
+ * Will automatically set dynamic row height
+ * based on the material table element parent (head, body, etc).
+ */
+
+var TableRow = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["forwardRef"](function TableRow(props, ref) {
+  var classes = props.classes,
+      className = props.className,
+      _props$component = props.component,
+      Component = _props$component === void 0 ? defaultComponent : _props$component,
+      _props$hover = props.hover,
+      hover = _props$hover === void 0 ? false : _props$hover,
+      _props$selected = props.selected,
+      selected = _props$selected === void 0 ? false : _props$selected,
+      other = Object(_babel_runtime_helpers_esm_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, ["classes", "className", "component", "hover", "selected"]);
+
+  var tablelvl2 = react__WEBPACK_IMPORTED_MODULE_2__["useContext"](_Table_Tablelvl2Context__WEBPACK_IMPORTED_MODULE_6__["default"]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_2__["createElement"](Component, Object(_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    ref: ref,
+    className: Object(clsx__WEBPACK_IMPORTED_MODULE_4__["default"])(classes.root, className, tablelvl2 && {
+      'head': classes.head,
+      'footer': classes.footer
+    }[tablelvl2.variant], hover && classes.hover, selected && classes.selected),
+    role: Component === defaultComponent ? null : 'row'
+  }, other));
+});
+ true ? TableRow.propTypes = {
+  /**
+   * Should be valid <tr> children such as `TableCell`.
+   */
+  children: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.node,
+
+  /**
+   * Override or extend the styles applied to the component.
+   * See [CSS API](#css) below for more details.
+   */
+  classes: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.object.isRequired,
+
+  /**
+   * @ignore
+   */
+  className: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.string,
+
+  /**
+   * The component used for the root node.
+   * Either a string to use a HTML element or a component.
+   */
+  component: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a
+  /* @typescript-to-proptypes-ignore */
+  .elementType,
+
+  /**
+   * If `true`, the table row will shade on hover.
+   */
+  hover: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool,
+
+  /**
+   * If `true`, the table row will have the selected shading.
+   */
+  selected: prop_types__WEBPACK_IMPORTED_MODULE_3___default.a.bool
+} : undefined;
+/* harmony default export */ __webpack_exports__["default"] = (Object(_styles_withStyles__WEBPACK_IMPORTED_MODULE_5__["default"])(styles, {
+  name: 'MuiTableRow'
+})(TableRow));
+
+/***/ }),
+
+/***/ "./node_modules/@material-ui/core/esm/TableRow/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/@material-ui/core/esm/TableRow/index.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _TableRow__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TableRow */ "./node_modules/@material-ui/core/esm/TableRow/TableRow.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _TableRow__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
 
 
@@ -13908,6 +15999,64 @@ function removeClass(element, className) {
 
 /***/ }),
 
+/***/ "./node_modules/fast-deep-equal/index.js":
+/*!***********************************************!*\
+  !*** ./node_modules/fast-deep-equal/index.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+// do not edit .js files directly - edit src/index.jst
+
+
+
+module.exports = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/history/esm/history.js":
 /*!*********************************************!*\
   !*** ./node_modules/history/esm/history.js ***!
@@ -18181,6 +20330,82 @@ var jss = create();
 
 /* harmony default export */ __webpack_exports__["default"] = (jss);
 
+
+
+/***/ }),
+
+/***/ "./node_modules/load-script/index.js":
+/*!*******************************************!*\
+  !*** ./node_modules/load-script/index.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+module.exports = function load (src, opts, cb) {
+  var head = document.head || document.getElementsByTagName('head')[0]
+  var script = document.createElement('script')
+
+  if (typeof opts === 'function') {
+    cb = opts
+    opts = {}
+  }
+
+  opts = opts || {}
+  cb = cb || function() {}
+
+  script.type = opts.type || 'text/javascript'
+  script.charset = opts.charset || 'utf8';
+  script.async = 'async' in opts ? !!opts.async : true
+  script.src = src
+
+  if (opts.attrs) {
+    setAttributes(script, opts.attrs)
+  }
+
+  if (opts.text) {
+    script.text = '' + opts.text
+  }
+
+  var onend = 'onload' in script ? stdOnEnd : ieOnEnd
+  onend(script, cb)
+
+  // some good legacy browsers (firefox) fail the 'in' detection above
+  // so as a fallback we always set onload
+  // old IE will ignore this and new IE will set onload
+  if (!script.onload) {
+    stdOnEnd(script, cb);
+  }
+
+  head.appendChild(script)
+}
+
+function setAttributes(script, attrs) {
+  for (var attr in attrs) {
+    script.setAttribute(attr, attrs[attr]);
+  }
+}
+
+function stdOnEnd (script, cb) {
+  script.onload = function () {
+    this.onerror = this.onload = null
+    cb(null, script)
+  }
+  script.onerror = function () {
+    // this.onload = null here is necessary
+    // because even IE9 works not like others
+    this.onerror = this.onload = null
+    cb(new Error('Failed to load ' + this.src), script)
+  }
+}
+
+function ieOnEnd (script, cb) {
+  script.onreadystatechange = function () {
+    if (this.readyState != 'complete' && this.readyState != 'loaded') return
+    this.onreadystatechange = null
+    cb(null, script) // there is no way to catch loading errors in IE8
+  }
+}
 
 
 /***/ }),
@@ -49578,6 +51803,359 @@ var classNamesShape =  true ? prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.
 
 /***/ }),
 
+/***/ "./node_modules/react-youtube/dist/index.esm.js":
+/*!******************************************************!*\
+  !*** ./node_modules/react-youtube/dist/index.esm.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var fast_deep_equal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! fast-deep-equal */ "./node_modules/fast-deep-equal/index.js");
+/* harmony import */ var fast_deep_equal__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(fast_deep_equal__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var youtube_player__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! youtube-player */ "./node_modules/youtube-player/dist/index.js");
+/* harmony import */ var youtube_player__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(youtube_player__WEBPACK_IMPORTED_MODULE_3__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+/**
+ * Check whether a `props` change should result in the video being updated.
+ *
+ * @param {Object} prevProps
+ * @param {Object} props
+ */
+
+function shouldUpdateVideo(prevProps, props) {
+  // A changing video should always trigger an update
+  if (prevProps.videoId !== props.videoId) {
+    return true;
+  } // Otherwise, a change in the start/end time playerVars also requires a player
+  // update.
+
+
+  var prevVars = prevProps.opts.playerVars || {};
+  var vars = props.opts.playerVars || {};
+  return prevVars.start !== vars.start || prevVars.end !== vars.end;
+}
+/**
+ * Neutralize API options that only require a video update, leaving only options
+ * that require a player reset. The results can then be compared to see if a
+ * player reset is necessary.
+ *
+ * @param {Object} opts
+ */
+
+
+function filterResetOptions(opts) {
+  return _objectSpread(_objectSpread({}, opts), {}, {
+    playerVars: _objectSpread({
+      autoplay: 0,
+      start: 0,
+      end: 0
+    }, opts.playerVars)
+  });
+}
+/**
+ * Check whether a `props` change should result in the player being reset.
+ * The player is reset when the `props.opts` change, except if the only change
+ * is in the `start` and `end` playerVars, because a video update can deal with
+ * those.
+ *
+ * @param {Object} prevProps
+ * @param {Object} props
+ */
+
+
+function shouldResetPlayer(prevProps, props) {
+  return !fast_deep_equal__WEBPACK_IMPORTED_MODULE_2___default()(filterResetOptions(prevProps.opts), filterResetOptions(props.opts));
+}
+/**
+ * Check whether a props change should result in an id or className update.
+ *
+ * @param {Object} prevProps
+ * @param {Object} props
+ */
+
+
+function shouldUpdatePlayer(prevProps, props) {
+  return prevProps.id !== props.id || prevProps.className !== props.className;
+}
+
+var YouTube = /*#__PURE__*/function (_React$Component) {
+  _inherits(YouTube, _React$Component);
+
+  var _super = _createSuper(YouTube);
+
+  /**
+   * Expose PlayerState constants for convenience. These constants can also be
+   * accessed through the global YT object after the YouTube IFrame API is instantiated.
+   * https://developers.google.com/youtube/iframe_api_reference#onStateChange
+   */
+  function YouTube(props) {
+    var _this;
+
+    _classCallCheck(this, YouTube);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "onPlayerReady", function (event) {
+      return _this.props.onReady(event);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onPlayerError", function (event) {
+      return _this.props.onError(event);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onPlayerStateChange", function (event) {
+      _this.props.onStateChange(event);
+
+      switch (event.data) {
+        case YouTube.PlayerState.ENDED:
+          _this.props.onEnd(event);
+
+          break;
+
+        case YouTube.PlayerState.PLAYING:
+          _this.props.onPlay(event);
+
+          break;
+
+        case YouTube.PlayerState.PAUSED:
+          _this.props.onPause(event);
+
+          break;
+
+        default:
+      }
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onPlayerPlaybackRateChange", function (event) {
+      return _this.props.onPlaybackRateChange(event);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "onPlayerPlaybackQualityChange", function (event) {
+      return _this.props.onPlaybackQualityChange(event);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "createPlayer", function () {
+      // do not attempt to create a player server-side, it won't work
+      if (typeof document === 'undefined') return; // create player
+
+      var playerOpts = _objectSpread(_objectSpread({}, _this.props.opts), {}, {
+        // preload the `videoId` video if one is already given
+        videoId: _this.props.videoId
+      });
+
+      _this.internalPlayer = youtube_player__WEBPACK_IMPORTED_MODULE_3___default()(_this.container, playerOpts); // attach event handlers
+
+      _this.internalPlayer.on('ready', _this.onPlayerReady);
+
+      _this.internalPlayer.on('error', _this.onPlayerError);
+
+      _this.internalPlayer.on('stateChange', _this.onPlayerStateChange);
+
+      _this.internalPlayer.on('playbackRateChange', _this.onPlayerPlaybackRateChange);
+
+      _this.internalPlayer.on('playbackQualityChange', _this.onPlayerPlaybackQualityChange);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "resetPlayer", function () {
+      return _this.internalPlayer.destroy().then(_this.createPlayer);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updatePlayer", function () {
+      _this.internalPlayer.getIframe().then(function (iframe) {
+        if (_this.props.id) iframe.setAttribute('id', _this.props.id);else iframe.removeAttribute('id');
+        if (_this.props.className) iframe.setAttribute('class', _this.props.className);else iframe.removeAttribute('class');
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "getInternalPlayer", function () {
+      return _this.internalPlayer;
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "updateVideo", function () {
+      if (typeof _this.props.videoId === 'undefined' || _this.props.videoId === null) {
+        _this.internalPlayer.stopVideo();
+
+        return;
+      } // set queueing options
+
+
+      var autoplay = false;
+      var opts = {
+        videoId: _this.props.videoId
+      };
+
+      if ('playerVars' in _this.props.opts) {
+        autoplay = _this.props.opts.playerVars.autoplay === 1;
+
+        if ('start' in _this.props.opts.playerVars) {
+          opts.startSeconds = _this.props.opts.playerVars.start;
+        }
+
+        if ('end' in _this.props.opts.playerVars) {
+          opts.endSeconds = _this.props.opts.playerVars.end;
+        }
+      } // if autoplay is enabled loadVideoById
+
+
+      if (autoplay) {
+        _this.internalPlayer.loadVideoById(opts);
+
+        return;
+      } // default behaviour just cues the video
+
+
+      _this.internalPlayer.cueVideoById(opts);
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "refContainer", function (container) {
+      _this.container = container;
+    });
+
+    _this.container = null;
+    _this.internalPlayer = null;
+    return _this;
+  }
+
+  _createClass(YouTube, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createPlayer();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (shouldUpdatePlayer(prevProps, this.props)) {
+        this.updatePlayer();
+      }
+
+      if (shouldResetPlayer(prevProps, this.props)) {
+        this.resetPlayer();
+      }
+
+      if (shouldUpdateVideo(prevProps, this.props)) {
+        this.updateVideo();
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      /**
+       * Note: The `youtube-player` package that is used promisifies all YouTube
+       * Player API calls, which introduces a delay of a tick before it actually
+       * gets destroyed. Since React attempts to remove the element instantly
+       * this method isn't quick enough to reset the container element.
+       */
+      this.internalPlayer.destroy();
+    }
+    /**
+     * https://developers.google.com/youtube/iframe_api_reference#onReady
+     *
+     * @param {Object} event
+     *   @param {Object} target - player object
+     */
+
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: this.props.containerClassName
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        id: this.props.id,
+        className: this.props.className,
+        ref: this.refContainer
+      }));
+    }
+  }]);
+
+  return YouTube;
+}(react__WEBPACK_IMPORTED_MODULE_1___default.a.Component);
+
+_defineProperty(YouTube, "PlayerState", {
+  UNSTARTED: -1,
+  ENDED: 0,
+  PLAYING: 1,
+  PAUSED: 2,
+  BUFFERING: 3,
+  CUED: 5
+});
+
+YouTube.propTypes = {
+  videoId: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // custom ID for player element
+  id: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // custom class name for player element
+  className: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // custom class name for player container element
+  containerClassName: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.string,
+  // https://developers.google.com/youtube/iframe_api_reference#Loading_a_Video_Player
+  opts: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.objectOf(prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.any),
+  // event subscriptions
+  onReady: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onError: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onPlay: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onPause: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onEnd: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onStateChange: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onPlaybackRateChange: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func,
+  onPlaybackQualityChange: prop_types__WEBPACK_IMPORTED_MODULE_0___default.a.func
+};
+YouTube.defaultProps = {
+  videoId: null,
+  id: null,
+  className: null,
+  opts: {},
+  containerClassName: '',
+  onReady: function onReady() {},
+  onError: function onError() {},
+  onPlay: function onPlay() {},
+  onPause: function onPause() {},
+  onEnd: function onEnd() {},
+  onStateChange: function onStateChange() {},
+  onPlaybackRateChange: function onPlaybackRateChange() {},
+  onPlaybackQualityChange: function onPlaybackQualityChange() {}
+};
+/* harmony default export */ __webpack_exports__["default"] = (YouTube);
+
+
+/***/ }),
+
 /***/ "./node_modules/react/cjs/react.development.js":
 /*!*****************************************************!*\
   !*** ./node_modules/react/cjs/react.development.js ***!
@@ -53079,6 +55657,79 @@ if (false) {} else {
 
 /***/ }),
 
+/***/ "./node_modules/sister/src/sister.js":
+/*!*******************************************!*\
+  !*** ./node_modules/sister/src/sister.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var Sister;
+
+/**
+* @link https://github.com/gajus/sister for the canonical source repository
+* @license https://github.com/gajus/sister/blob/master/LICENSE BSD 3-Clause
+*/
+Sister = function () {
+    var sister = {},
+        events = {};
+
+    /**
+     * @name handler
+     * @function
+     * @param {Object} data Event data.
+     */
+
+    /**
+     * @param {String} name Event name.
+     * @param {handler} handler
+     * @return {listener}
+     */
+    sister.on = function (name, handler) {
+        var listener = {name: name, handler: handler};
+        events[name] = events[name] || [];
+        events[name].unshift(listener);
+        return listener;
+    };
+
+    /**
+     * @param {listener}
+     */
+    sister.off = function (listener) {
+        var index = events[listener.name].indexOf(listener);
+
+        if (index !== -1) {
+            events[listener.name].splice(index, 1);
+        }
+    };
+
+    /**
+     * @param {String} name Event name.
+     * @param {Object} data Event data.
+     */
+    sister.trigger = function (name, data) {
+        var listeners = events[name],
+            i;
+
+        if (listeners) {
+            i = listeners.length;
+            while (i--) {
+                listeners[i].handler(data);
+            }
+        }
+    };
+
+    return sister;
+};
+
+module.exports = Sister;
+
+
+/***/ }),
+
 /***/ "./node_modules/tiny-invariant/dist/tiny-invariant.esm.js":
 /*!****************************************************************!*\
   !*** ./node_modules/tiny-invariant/dist/tiny-invariant.esm.js ***!
@@ -53218,6 +55869,1067 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./node_modules/youtube-player/dist/FunctionStateMap.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/youtube-player/dist/FunctionStateMap.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _PlayerStates = __webpack_require__(/*! ./constants/PlayerStates */ "./node_modules/youtube-player/dist/constants/PlayerStates.js");
+
+var _PlayerStates2 = _interopRequireDefault(_PlayerStates);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  pauseVideo: {
+    acceptableStates: [_PlayerStates2.default.ENDED, _PlayerStates2.default.PAUSED],
+    stateChangeRequired: false
+  },
+  playVideo: {
+    acceptableStates: [_PlayerStates2.default.ENDED, _PlayerStates2.default.PLAYING],
+    stateChangeRequired: false
+  },
+  seekTo: {
+    acceptableStates: [_PlayerStates2.default.ENDED, _PlayerStates2.default.PLAYING, _PlayerStates2.default.PAUSED],
+    stateChangeRequired: true,
+
+    // TRICKY: `seekTo` may not cause a state change if no buffering is
+    // required.
+    timeout: 3000
+  }
+};
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/dist/YouTubePlayer.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/youtube-player/dist/YouTubePlayer.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _debug = __webpack_require__(/*! debug */ "./node_modules/youtube-player/node_modules/debug/src/browser.js");
+
+var _debug2 = _interopRequireDefault(_debug);
+
+var _functionNames = __webpack_require__(/*! ./functionNames */ "./node_modules/youtube-player/dist/functionNames.js");
+
+var _functionNames2 = _interopRequireDefault(_functionNames);
+
+var _eventNames = __webpack_require__(/*! ./eventNames */ "./node_modules/youtube-player/dist/eventNames.js");
+
+var _eventNames2 = _interopRequireDefault(_eventNames);
+
+var _FunctionStateMap = __webpack_require__(/*! ./FunctionStateMap */ "./node_modules/youtube-player/dist/FunctionStateMap.js");
+
+var _FunctionStateMap2 = _interopRequireDefault(_FunctionStateMap);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable promise/prefer-await-to-then */
+
+var debug = (0, _debug2.default)('youtube-player');
+
+var YouTubePlayer = {};
+
+/**
+ * Construct an object that defines an event handler for all of the YouTube
+ * player events. Proxy captured events through an event emitter.
+ *
+ * @todo Capture event parameters.
+ * @see https://developers.google.com/youtube/iframe_api_reference#Events
+ */
+YouTubePlayer.proxyEvents = function (emitter) {
+  var events = {};
+
+  var _loop = function _loop(eventName) {
+    var onEventName = 'on' + eventName.slice(0, 1).toUpperCase() + eventName.slice(1);
+
+    events[onEventName] = function (event) {
+      debug('event "%s"', onEventName, event);
+
+      emitter.trigger(eventName, event);
+    };
+  };
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = _eventNames2.default[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var eventName = _step.value;
+
+      _loop(eventName);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  return events;
+};
+
+/**
+ * Delays player API method execution until player state is ready.
+ *
+ * @todo Proxy all of the methods using Object.keys.
+ * @todo See TRICKY below.
+ * @param playerAPIReady Promise that resolves when player is ready.
+ * @param strictState A flag designating whether or not to wait for
+ * an acceptable state when calling supported functions.
+ * @returns {Object}
+ */
+YouTubePlayer.promisifyPlayer = function (playerAPIReady) {
+  var strictState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+  var functions = {};
+
+  var _loop2 = function _loop2(functionName) {
+    if (strictState && _FunctionStateMap2.default[functionName]) {
+      functions[functionName] = function () {
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        return playerAPIReady.then(function (player) {
+          var stateInfo = _FunctionStateMap2.default[functionName];
+          var playerState = player.getPlayerState();
+
+          // eslint-disable-next-line no-warning-comments
+          // TODO: Just spread the args into the function once Babel is fixed:
+          // https://github.com/babel/babel/issues/4270
+          //
+          // eslint-disable-next-line prefer-spread
+          var value = player[functionName].apply(player, args);
+
+          // TRICKY: For functions like `seekTo`, a change in state must be
+          // triggered given that the resulting state could match the initial
+          // state.
+          if (stateInfo.stateChangeRequired ||
+
+          // eslint-disable-next-line no-extra-parens
+          Array.isArray(stateInfo.acceptableStates) && stateInfo.acceptableStates.indexOf(playerState) === -1) {
+            return new Promise(function (resolve) {
+              var onPlayerStateChange = function onPlayerStateChange() {
+                var playerStateAfterChange = player.getPlayerState();
+
+                var timeout = void 0;
+
+                if (typeof stateInfo.timeout === 'number') {
+                  timeout = setTimeout(function () {
+                    player.removeEventListener('onStateChange', onPlayerStateChange);
+
+                    resolve();
+                  }, stateInfo.timeout);
+                }
+
+                if (Array.isArray(stateInfo.acceptableStates) && stateInfo.acceptableStates.indexOf(playerStateAfterChange) !== -1) {
+                  player.removeEventListener('onStateChange', onPlayerStateChange);
+
+                  clearTimeout(timeout);
+
+                  resolve();
+                }
+              };
+
+              player.addEventListener('onStateChange', onPlayerStateChange);
+            }).then(function () {
+              return value;
+            });
+          }
+
+          return value;
+        });
+      };
+    } else {
+      functions[functionName] = function () {
+        for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+          args[_key2] = arguments[_key2];
+        }
+
+        return playerAPIReady.then(function (player) {
+          // eslint-disable-next-line no-warning-comments
+          // TODO: Just spread the args into the function once Babel is fixed:
+          // https://github.com/babel/babel/issues/4270
+          //
+          // eslint-disable-next-line prefer-spread
+          return player[functionName].apply(player, args);
+        });
+      };
+    }
+  };
+
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = _functionNames2.default[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var functionName = _step2.value;
+
+      _loop2(functionName);
+    }
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2.return) {
+        _iterator2.return();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
+  }
+
+  return functions;
+};
+
+exports.default = YouTubePlayer;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/dist/constants/PlayerStates.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/youtube-player/dist/constants/PlayerStates.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  BUFFERING: 3,
+  ENDED: 0,
+  PAUSED: 2,
+  PLAYING: 1,
+  UNSTARTED: -1,
+  VIDEO_CUED: 5
+};
+module.exports = exports["default"];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/dist/eventNames.js":
+/*!********************************************************!*\
+  !*** ./node_modules/youtube-player/dist/eventNames.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+/**
+ * @see https://developers.google.com/youtube/iframe_api_reference#Events
+ * `volumeChange` is not officially supported but seems to work
+ * it emits an object: `{volume: 82.6923076923077, muted: false}`
+ */
+exports.default = ['ready', 'stateChange', 'playbackQualityChange', 'playbackRateChange', 'error', 'apiChange', 'volumeChange'];
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/dist/functionNames.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/youtube-player/dist/functionNames.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+/**
+ * @see https://developers.google.com/youtube/iframe_api_reference#Functions
+ */
+exports.default = ['cueVideoById', 'loadVideoById', 'cueVideoByUrl', 'loadVideoByUrl', 'playVideo', 'pauseVideo', 'stopVideo', 'getVideoLoadedFraction', 'cuePlaylist', 'loadPlaylist', 'nextVideo', 'previousVideo', 'playVideoAt', 'setShuffle', 'setLoop', 'getPlaylist', 'getPlaylistIndex', 'setOption', 'mute', 'unMute', 'isMuted', 'setVolume', 'getVolume', 'seekTo', 'getPlayerState', 'getPlaybackRate', 'setPlaybackRate', 'getAvailablePlaybackRates', 'getPlaybackQuality', 'setPlaybackQuality', 'getAvailableQualityLevels', 'getCurrentTime', 'getDuration', 'removeEventListener', 'getVideoUrl', 'getVideoEmbedCode', 'getOptions', 'getOption', 'addEventListener', 'destroy', 'setSize', 'getIframe'];
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/dist/index.js":
+/*!***************************************************!*\
+  !*** ./node_modules/youtube-player/dist/index.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+var _sister = __webpack_require__(/*! sister */ "./node_modules/sister/src/sister.js");
+
+var _sister2 = _interopRequireDefault(_sister);
+
+var _loadYouTubeIframeApi = __webpack_require__(/*! ./loadYouTubeIframeApi */ "./node_modules/youtube-player/dist/loadYouTubeIframeApi.js");
+
+var _loadYouTubeIframeApi2 = _interopRequireDefault(_loadYouTubeIframeApi);
+
+var _YouTubePlayer = __webpack_require__(/*! ./YouTubePlayer */ "./node_modules/youtube-player/dist/YouTubePlayer.js");
+
+var _YouTubePlayer2 = _interopRequireDefault(_YouTubePlayer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @typedef YT.Player
+ * @see https://developers.google.com/youtube/iframe_api_reference
+ * */
+
+/**
+ * @see https://developers.google.com/youtube/iframe_api_reference#Loading_a_Video_Player
+ */
+var youtubeIframeAPI = void 0;
+
+/**
+ * A factory function used to produce an instance of YT.Player and queue function calls and proxy events of the resulting object.
+ *
+ * @param maybeElementId Either An existing YT.Player instance,
+ * the DOM element or the id of the HTML element where the API will insert an <iframe>.
+ * @param options See `options` (Ignored when using an existing YT.Player instance).
+ * @param strictState A flag designating whether or not to wait for
+ * an acceptable state when calling supported functions. Default: `false`.
+ * See `FunctionStateMap.js` for supported functions and acceptable states.
+ */
+
+exports.default = function (maybeElementId) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var strictState = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var emitter = (0, _sister2.default)();
+
+  if (!youtubeIframeAPI) {
+    youtubeIframeAPI = (0, _loadYouTubeIframeApi2.default)(emitter);
+  }
+
+  if (options.events) {
+    throw new Error('Event handlers cannot be overwritten.');
+  }
+
+  if (typeof maybeElementId === 'string' && !document.getElementById(maybeElementId)) {
+    throw new Error('Element "' + maybeElementId + '" does not exist.');
+  }
+
+  options.events = _YouTubePlayer2.default.proxyEvents(emitter);
+
+  var playerAPIReady = new Promise(function (resolve) {
+    if ((typeof maybeElementId === 'undefined' ? 'undefined' : _typeof(maybeElementId)) === 'object' && maybeElementId.playVideo instanceof Function) {
+      var player = maybeElementId;
+
+      resolve(player);
+    } else {
+      // asume maybeElementId can be rendered inside
+      // eslint-disable-next-line promise/catch-or-return
+      youtubeIframeAPI.then(function (YT) {
+        // eslint-disable-line promise/prefer-await-to-then
+        var player = new YT.Player(maybeElementId, options);
+
+        emitter.on('ready', function () {
+          resolve(player);
+        });
+
+        return null;
+      });
+    }
+  });
+
+  var playerApi = _YouTubePlayer2.default.promisifyPlayer(playerAPIReady, strictState);
+
+  playerApi.on = emitter.on;
+  playerApi.off = emitter.off;
+
+  return playerApi;
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/dist/loadYouTubeIframeApi.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/youtube-player/dist/loadYouTubeIframeApi.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _loadScript = __webpack_require__(/*! load-script */ "./node_modules/load-script/index.js");
+
+var _loadScript2 = _interopRequireDefault(_loadScript);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (emitter) {
+  /**
+   * A promise that is resolved when window.onYouTubeIframeAPIReady is called.
+   * The promise is resolved with a reference to window.YT object.
+   */
+  var iframeAPIReady = new Promise(function (resolve) {
+    if (window.YT && window.YT.Player && window.YT.Player instanceof Function) {
+      resolve(window.YT);
+
+      return;
+    } else {
+      var protocol = window.location.protocol === 'http:' ? 'http:' : 'https:';
+
+      (0, _loadScript2.default)(protocol + '//www.youtube.com/iframe_api', function (error) {
+        if (error) {
+          emitter.trigger('error', error);
+        }
+      });
+    }
+
+    var previous = window.onYouTubeIframeAPIReady;
+
+    // The API will call this function when page has finished downloading
+    // the JavaScript for the player API.
+    window.onYouTubeIframeAPIReady = function () {
+      if (previous) {
+        previous();
+      }
+
+      resolve(window.YT);
+    };
+  });
+
+  return iframeAPIReady;
+};
+
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/node_modules/debug/src/browser.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/youtube-player/node_modules/debug/src/browser.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * This is the web browser implementation of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = __webpack_require__(/*! ./debug */ "./node_modules/youtube-player/node_modules/debug/src/debug.js");
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = 'undefined' != typeof chrome
+               && 'undefined' != typeof chrome.storage
+                  ? chrome.storage.local
+                  : localstorage();
+
+/**
+ * Colors.
+ */
+
+exports.colors = [
+  'lightseagreen',
+  'forestgreen',
+  'goldenrod',
+  'dodgerblue',
+  'darkorchid',
+  'crimson'
+];
+
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+
+function useColors() {
+  // NB: In an Electron preload script, document will be defined but not fully
+  // initialized. Since we know we're in Chrome, we'll just detect this case
+  // explicitly
+  if (typeof window !== 'undefined' && window.process && window.process.type === 'renderer') {
+    return true;
+  }
+
+  // is webkit? http://stackoverflow.com/a/16459606/376773
+  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+  return (typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance) ||
+    // is firebug? http://stackoverflow.com/a/398120/376773
+    (typeof window !== 'undefined' && window.console && (window.console.firebug || (window.console.exception && window.console.table))) ||
+    // is firefox >= v31?
+    // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31) ||
+    // double check webkit in userAgent just in case we are in a worker
+    (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/));
+}
+
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+exports.formatters.j = function(v) {
+  try {
+    return JSON.stringify(v);
+  } catch (err) {
+    return '[UnexpectedJSONParseError]: ' + err.message;
+  }
+};
+
+
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+function formatArgs(args) {
+  var useColors = this.useColors;
+
+  args[0] = (useColors ? '%c' : '')
+    + this.namespace
+    + (useColors ? ' %c' : ' ')
+    + args[0]
+    + (useColors ? '%c ' : ' ')
+    + '+' + exports.humanize(this.diff);
+
+  if (!useColors) return;
+
+  var c = 'color: ' + this.color;
+  args.splice(1, 0, c, 'color: inherit')
+
+  // the final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-zA-Z%]/g, function(match) {
+    if ('%%' === match) return;
+    index++;
+    if ('%c' === match) {
+      // we only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+
+  args.splice(lastC, 0, c);
+}
+
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+function log() {
+  // this hackery is required for IE8/9, where
+  // the `console.log` function doesn't have 'apply'
+  return 'object' === typeof console
+    && console.log
+    && Function.prototype.apply.call(console.log, console, arguments);
+}
+
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+function save(namespaces) {
+  try {
+    if (null == namespaces) {
+      exports.storage.removeItem('debug');
+    } else {
+      exports.storage.debug = namespaces;
+    }
+  } catch(e) {}
+}
+
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+function load() {
+  var r;
+  try {
+    r = exports.storage.debug;
+  } catch(e) {}
+
+  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+  if (!r && typeof process !== 'undefined' && 'env' in process) {
+    r = process.env.DEBUG;
+  }
+
+  return r;
+}
+
+/**
+ * Enable namespaces listed in `localStorage.debug` initially.
+ */
+
+exports.enable(load());
+
+/**
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
+ */
+
+function localstorage() {
+  try {
+    return window.localStorage;
+  } catch (e) {}
+}
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../process/browser.js */ "./node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/node_modules/debug/src/debug.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/youtube-player/node_modules/debug/src/debug.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ *
+ * Expose `debug()` as the module.
+ */
+
+exports = module.exports = createDebug.debug = createDebug['default'] = createDebug;
+exports.coerce = coerce;
+exports.disable = disable;
+exports.enable = enable;
+exports.enabled = enabled;
+exports.humanize = __webpack_require__(/*! ms */ "./node_modules/youtube-player/node_modules/ms/index.js");
+
+/**
+ * The currently active debug mode names, and names to skip.
+ */
+
+exports.names = [];
+exports.skips = [];
+
+/**
+ * Map of special "%n" handling functions, for the debug "format" argument.
+ *
+ * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+ */
+
+exports.formatters = {};
+
+/**
+ * Previous log timestamp.
+ */
+
+var prevTime;
+
+/**
+ * Select a color.
+ * @param {String} namespace
+ * @return {Number}
+ * @api private
+ */
+
+function selectColor(namespace) {
+  var hash = 0, i;
+
+  for (i in namespace) {
+    hash  = ((hash << 5) - hash) + namespace.charCodeAt(i);
+    hash |= 0; // Convert to 32bit integer
+  }
+
+  return exports.colors[Math.abs(hash) % exports.colors.length];
+}
+
+/**
+ * Create a debugger with the given `namespace`.
+ *
+ * @param {String} namespace
+ * @return {Function}
+ * @api public
+ */
+
+function createDebug(namespace) {
+
+  function debug() {
+    // disabled?
+    if (!debug.enabled) return;
+
+    var self = debug;
+
+    // set `diff` timestamp
+    var curr = +new Date();
+    var ms = curr - (prevTime || curr);
+    self.diff = ms;
+    self.prev = prevTime;
+    self.curr = curr;
+    prevTime = curr;
+
+    // turn the `arguments` into a proper Array
+    var args = new Array(arguments.length);
+    for (var i = 0; i < args.length; i++) {
+      args[i] = arguments[i];
+    }
+
+    args[0] = exports.coerce(args[0]);
+
+    if ('string' !== typeof args[0]) {
+      // anything else let's inspect with %O
+      args.unshift('%O');
+    }
+
+    // apply any `formatters` transformations
+    var index = 0;
+    args[0] = args[0].replace(/%([a-zA-Z%])/g, function(match, format) {
+      // if we encounter an escaped % then don't increase the array index
+      if (match === '%%') return match;
+      index++;
+      var formatter = exports.formatters[format];
+      if ('function' === typeof formatter) {
+        var val = args[index];
+        match = formatter.call(self, val);
+
+        // now we need to remove `args[index]` since it's inlined in the `format`
+        args.splice(index, 1);
+        index--;
+      }
+      return match;
+    });
+
+    // apply env-specific formatting (colors, etc.)
+    exports.formatArgs.call(self, args);
+
+    var logFn = debug.log || exports.log || console.log.bind(console);
+    logFn.apply(self, args);
+  }
+
+  debug.namespace = namespace;
+  debug.enabled = exports.enabled(namespace);
+  debug.useColors = exports.useColors();
+  debug.color = selectColor(namespace);
+
+  // env-specific initialization logic for debug instances
+  if ('function' === typeof exports.init) {
+    exports.init(debug);
+  }
+
+  return debug;
+}
+
+/**
+ * Enables a debug mode by namespaces. This can include modes
+ * separated by a colon and wildcards.
+ *
+ * @param {String} namespaces
+ * @api public
+ */
+
+function enable(namespaces) {
+  exports.save(namespaces);
+
+  exports.names = [];
+  exports.skips = [];
+
+  var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
+  var len = split.length;
+
+  for (var i = 0; i < len; i++) {
+    if (!split[i]) continue; // ignore empty strings
+    namespaces = split[i].replace(/\*/g, '.*?');
+    if (namespaces[0] === '-') {
+      exports.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+    } else {
+      exports.names.push(new RegExp('^' + namespaces + '$'));
+    }
+  }
+}
+
+/**
+ * Disable debug output.
+ *
+ * @api public
+ */
+
+function disable() {
+  exports.enable('');
+}
+
+/**
+ * Returns true if the given mode name is enabled, false otherwise.
+ *
+ * @param {String} name
+ * @return {Boolean}
+ * @api public
+ */
+
+function enabled(name) {
+  var i, len;
+  for (i = 0, len = exports.skips.length; i < len; i++) {
+    if (exports.skips[i].test(name)) {
+      return false;
+    }
+  }
+  for (i = 0, len = exports.names.length; i < len; i++) {
+    if (exports.names[i].test(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Coerce `val`.
+ *
+ * @param {Mixed} val
+ * @return {Mixed}
+ * @api private
+ */
+
+function coerce(val) {
+  if (val instanceof Error) return val.stack || val.message;
+  return val;
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/youtube-player/node_modules/ms/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/youtube-player/node_modules/ms/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Helpers.
+ */
+
+var s = 1000;
+var m = s * 60;
+var h = m * 60;
+var d = h * 24;
+var y = d * 365.25;
+
+/**
+ * Parse or format the given `val`.
+ *
+ * Options:
+ *
+ *  - `long` verbose formatting [false]
+ *
+ * @param {String|Number} val
+ * @param {Object} [options]
+ * @throws {Error} throw an error if val is not a non-empty string or a number
+ * @return {String|Number}
+ * @api public
+ */
+
+module.exports = function(val, options) {
+  options = options || {};
+  var type = typeof val;
+  if (type === 'string' && val.length > 0) {
+    return parse(val);
+  } else if (type === 'number' && isNaN(val) === false) {
+    return options.long ? fmtLong(val) : fmtShort(val);
+  }
+  throw new Error(
+    'val is not a non-empty string or a valid number. val=' +
+      JSON.stringify(val)
+  );
+};
+
+/**
+ * Parse the given `str` and return milliseconds.
+ *
+ * @param {String} str
+ * @return {Number}
+ * @api private
+ */
+
+function parse(str) {
+  str = String(str);
+  if (str.length > 100) {
+    return;
+  }
+  var match = /^((?:\d+)?\.?\d+) *(milliseconds?|msecs?|ms|seconds?|secs?|s|minutes?|mins?|m|hours?|hrs?|h|days?|d|years?|yrs?|y)?$/i.exec(
+    str
+  );
+  if (!match) {
+    return;
+  }
+  var n = parseFloat(match[1]);
+  var type = (match[2] || 'ms').toLowerCase();
+  switch (type) {
+    case 'years':
+    case 'year':
+    case 'yrs':
+    case 'yr':
+    case 'y':
+      return n * y;
+    case 'days':
+    case 'day':
+    case 'd':
+      return n * d;
+    case 'hours':
+    case 'hour':
+    case 'hrs':
+    case 'hr':
+    case 'h':
+      return n * h;
+    case 'minutes':
+    case 'minute':
+    case 'mins':
+    case 'min':
+    case 'm':
+      return n * m;
+    case 'seconds':
+    case 'second':
+    case 'secs':
+    case 'sec':
+    case 's':
+      return n * s;
+    case 'milliseconds':
+    case 'millisecond':
+    case 'msecs':
+    case 'msec':
+    case 'ms':
+      return n;
+    default:
+      return undefined;
+  }
+}
+
+/**
+ * Short format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtShort(ms) {
+  if (ms >= d) {
+    return Math.round(ms / d) + 'd';
+  }
+  if (ms >= h) {
+    return Math.round(ms / h) + 'h';
+  }
+  if (ms >= m) {
+    return Math.round(ms / m) + 'm';
+  }
+  if (ms >= s) {
+    return Math.round(ms / s) + 's';
+  }
+  return ms + 'ms';
+}
+
+/**
+ * Long format for `ms`.
+ *
+ * @param {Number} ms
+ * @return {String}
+ * @api private
+ */
+
+function fmtLong(ms) {
+  return plural(ms, d, 'day') ||
+    plural(ms, h, 'hour') ||
+    plural(ms, m, 'minute') ||
+    plural(ms, s, 'second') ||
+    ms + ' ms';
+}
+
+/**
+ * Pluralization helper.
+ */
+
+function plural(ms, n, name) {
+  if (ms < n) {
+    return;
+  }
+  if (ms < n * 1.5) {
+    return Math.floor(ms / n) + ' ' + name;
+  }
+  return Math.ceil(ms / n) + ' ' + name + 's';
+}
+
+
+/***/ }),
+
 /***/ "./src/main/js/App.js":
 /*!****************************!*\
   !*** ./src/main/js/App.js ***!
@@ -53241,6 +56953,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _frontend_src_Pages_ListOfEventsPage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../frontend/src/Pages/ListOfEventsPage */ "./frontend/src/Pages/ListOfEventsPage.js");
 /* harmony import */ var _frontend_src_Pages_EventPage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../frontend/src/Pages/EventPage */ "./frontend/src/Pages/EventPage.js");
 /* harmony import */ var _frontend_src_Pages_PlayerPage__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../../frontend/src/Pages/PlayerPage */ "./frontend/src/Pages/PlayerPage.js");
+/* harmony import */ var _frontend_src_Pages_LiveScorePage__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../../frontend/src/Pages/LiveScorePage */ "./frontend/src/Pages/LiveScorePage.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53262,6 +56975,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
 
 
 
@@ -53320,6 +57034,10 @@ var App = /*#__PURE__*/function (_Component) {
         exact: true,
         path: "/Player",
         component: _frontend_src_Pages_PlayerPage__WEBPACK_IMPORTED_MODULE_10__["default"]
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+        exact: true,
+        path: "/LiveScore",
+        component: _frontend_src_Pages_LiveScorePage__WEBPACK_IMPORTED_MODULE_11__["default"]
       }));
     }
   }]);

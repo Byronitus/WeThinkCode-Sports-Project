@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import DeleteIcon from '@material-ui/icons/Delete';
-import IconButton from '@material-ui/core/IconButton';
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Redirect} from "react-router-dom";
-import Header from "../layouts/Header";
 
 class LeagueInfo extends Component{
 
@@ -30,9 +25,10 @@ class LeagueInfo extends Component{
     }
 
     render() {
-        //Destructuring instead of using this.props.user.<variable> you can now use name | surname
+        console.log(this.props.user.strSport)
         if (this.state.check){
-            return <Redirect push to={{pathname: "/teams",state: {sportID : this.props.user.idLeague, LeagueDescription : this.props.user.strDescriptionEN}}}/>
+            return <Redirect push to={{pathname: "/teams",state: {sportID : this.props.user.idLeague, LeagueDescription : this.props.user.strDescriptionEN,
+                    LeagueName:this.props.user.strLeague, SportName:this.props.user.strSport}}}/>
         }
         const {id} = this.props.user;
         return(

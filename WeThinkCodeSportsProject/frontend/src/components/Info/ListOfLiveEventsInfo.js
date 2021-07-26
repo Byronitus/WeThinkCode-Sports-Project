@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import {Redirect} from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import Box from '@material-ui/core/Box';
 import PropTypes from "prop-types";
 
-class TeamListInfo extends Component{
+class ListOfLiveEvents extends Component{
 
     state ={check : false};
 
@@ -11,6 +12,7 @@ class TeamListInfo extends Component{
         this.setState({check:true});
     }
 
+    //dynamic Styling
     infoStyle = () =>{
         return {
             backgroundColor: (this.props.user.id %2) == 0? '#c8d4f7cc' :'',
@@ -24,26 +26,33 @@ class TeamListInfo extends Component{
     }
 
     render() {
-
         if (this.state.check){
-            return <Redirect push to={{pathname: "/team",state: {TeamID : this.props.user.idTeam, TeamDescription : this.props.user.strDescriptionEN}}}/>
+            return <Redirect push to={{pathname: "/LiveScore",state: {LeagueID : this.props.user.idLeague, EventID : this.props.user.idEvent}}}/>
         }
         const {id} = this.props.user;
         return(
             <div style={this.infoStyle()}>
-                <Button color="primary" variant="outlined" onClick={this.setCheck}>
-                    {this.props.user.strTeam}
-                </Button>
-                <div className="team-badge" style={{ justifyContent:'center', alignItems:'center'}}>
-                    <img src={this.props.user.strTeamLogo} alt=""/>
-                </div>
+                <Box textAlign='center'>
+                    <Button color="primary" variant="outlined" onClick={this.setCheck}>
+                        {this.props.user.strHomeTeam} vs {this.props.user.strAwayTeam}
+                    </Button>
+                </Box>
             </div>
         );
     }
 }
 
+const iconUsername = {
+    display: 'flex',
+    justifyContent:'space-between',
 
-TeamListInfo.propTypes = {
+}
+
+const buttons = {
+    display: 'flex'
+}
+//PropTypes
+ListOfLiveEvents.propTypes = {
     user : PropTypes.object.isRequired
 }
-export  default  TeamListInfo;
+export  default  ListOfLiveEvents;

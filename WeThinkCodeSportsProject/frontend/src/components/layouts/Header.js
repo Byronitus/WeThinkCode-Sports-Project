@@ -38,7 +38,6 @@ class Header extends Component{
                 <input
                     style={BarStyling}
                     key="random1"
-                    // value=keyword
                     placeholder={"search..."}
                     onChange={(e) => this.setState({value:e.target.value})}
                     onKeyUp={this.handleKeyPress.bind(this)}

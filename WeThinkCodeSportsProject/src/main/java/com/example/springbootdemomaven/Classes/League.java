@@ -46,6 +46,19 @@ public class League {
     public String strNaming;
     public String strComplete;
     public String strLocked;
+    public int Count;
+
+    public int getCount() {
+        return Count;
+    }
+
+    public void IncreaseCount(){
+        try {
+            this.Count = this.Count + 1;
+        }catch (Exception e){
+            this.Count = 0;
+        }
+    }
 
     public void setStrLogo(String url){this.strLogo = url;}
 
@@ -228,4 +241,56 @@ public class League {
     public String getIdLeague() {
         return idLeague;
     }
+
+    public String toJsonString() {
+        return "{" +
+                "idLeague:\"" + this.idLeague + "\"" +
+                ", idSoccerXML:\"" + this.idSoccerXML + "\"" +
+                ", idAPIfootball:\"" + this.idAPIfootball + "\"" +
+                ", strSport:\"" + this.strSport + "\"" +
+                ", strLeague:\"" + this.strLeague + "\"" +
+                ", strLeagueAlternate:\"" + this.strLeagueAlternate + "\"" +
+                ", strDivision:\"" + this.strDivision + "\"" +
+                ", idCup:\"" + this.idCup + "\"" +
+                ", strCurrentSeason:\"" + this.strCurrentSeason + "\"" +
+                ", intFormedYear:\"" + this.intFormedYear + "\"" +
+                ", dateFirstEvent:\"" + this.dateFirstEvent + "\"" +
+                ", strGender:\"" + this.strGender + "\"" +
+                ", strCountry:\"" + this.strCountry + "\"" +
+                ", strWebsite:\"" + this.strWebsite + "\"" +
+                ", strFacebook:\"" + this.strFacebook + "\"" +
+                ", strTwitter:\"" + this.strTwitter + "\"" +
+                ", strYoutube:\"" + this.strYoutube + "\"" +
+                ", strRSS:\"" + this.strRSS + "\"" +
+                ", strDescriptionEN:\"" + this.strDescriptionEN + "\"" +
+                ", strDescriptionDE:\"" + this.strDescriptionDE + "\"" +
+                ", strDescriptionFR:\"" + this.strDescriptionFR + "\"" +
+                ", strDescriptionIT:\"" + this.strDescriptionIT + "\"" +
+                ", strDescriptionCN:\"" + this.strDescriptionCN + "\"" +
+                ", strDescriptionJP:\"" + this.strDescriptionJP + "\"" +
+                ", strDescriptionRU:\"" + this.strDescriptionRU + "\"" +
+                ", strDescriptionES:\"" + this.strDescriptionES + "\"" +
+                ", strDescriptionPT:\"" + this.strDescriptionPT + "\"" +
+                ", strDescriptionSE:\"" + this.strDescriptionSE + "\"" +
+                ", strDescriptionNL:\"" + this.strDescriptionNL + "\"" +
+                ", strDescriptionHU:\"" + this.strDescriptionHU + "\"" +
+                ", strDescriptionNO:\"" + this.strDescriptionNO + "\"" +
+                ", strDescriptionPL:\"" + this.strDescriptionPL + "\"" +
+                ", strDescriptionIL:\"" + this.strDescriptionIL + "\"" +
+                ", strFanart1:\"" + this.strFanart1 + "\"" +
+                ", strFanart2:\"" + this.strFanart2 + "\"" +
+                ", strFanart3:\"" + this.strFanart3 + "\"" +
+                ", strFanart4:\"" + this.strFanart4 + "\"" +
+                ", strBanner:\"" + this.strBanner + "\"" +
+                ", strBadge:\"" + this.strBadge + "\"" +
+                ", strLogo:\"" + this.strLogo + "\"" +
+                ", strPoster:\"" + this.strPoster + "\"" +
+                ", strTrophy:\"" + this.strTrophy + "\"" +
+                ", strNaming:\"" + this.strNaming + "\"" +
+                ", strComplete:\"" + this.strComplete + "\"" +
+                ", strLocked:\"" + this.strLocked + "\"" +
+                ", Count:" + this.Count +
+                "}";
+    }
+
 }

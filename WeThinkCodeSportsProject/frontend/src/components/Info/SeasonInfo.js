@@ -11,7 +11,6 @@ class SeasonInfo extends Component{
         this.setState({check:true});
     }
 
-    //dynamic Styling
     infoStyle = () =>{
         return {
             backgroundColor: (this.props.user.id %2) == 0? '#c8d4f7cc' :'',
@@ -39,16 +38,7 @@ class SeasonInfo extends Component{
     }
 }
 
-const iconUsername = {
-    display: 'flex',
-    justifyContent:'space-between',
 
-}
-
-const buttons = {
-    display: 'flex'
-}
-//PropTypes
 SeasonInfo.propTypes = {
     user : PropTypes.object.isRequired,
     LeagueId: PropTypes.any.isRequired

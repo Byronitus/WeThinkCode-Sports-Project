@@ -54,7 +54,7 @@ public class FutureEventsForTeam {
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"FutureTeamEvents",this.TeamID);
+                this.database.AddDocument(jsonObject,"FutureTeamEvents",this.TeamID,"");
             }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}
