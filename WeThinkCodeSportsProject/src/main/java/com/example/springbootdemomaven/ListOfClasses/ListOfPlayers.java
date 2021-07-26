@@ -54,7 +54,7 @@ public class ListOfPlayers {
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"Players",this.TeamID);
+                this.database.AddDocument(jsonObject,"Players",this.TeamID,"");
             }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}

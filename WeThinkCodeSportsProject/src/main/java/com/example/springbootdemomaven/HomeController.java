@@ -9,16 +9,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 @Controller
 public class HomeController {
-//    Database database = new Database();
+    public ArrayList<League> LeagueList = new ArrayList<>();
     public MongoClient client = MongoClients.create("");
     public MongoDatabase mongoDatabase = this.client.getDatabase("SportsDB");
+    public String Date;
 
     @GetMapping("/api/sport")
     public ResponseEntity<ArrayList<Sport>> getListOfSport(){
@@ -31,6 +29,8 @@ public class HomeController {
     public ResponseEntity<ArrayList<League>> getListOfLeagues(@PathVariable(value = "name" ) String name){
         ListOfLeagues listOfLeagues = new ListOfLeagues(name,this.mongoDatabase);
         listOfLeagues.APIListLeagues(listOfLeagues.createURLString());
+        this.LeagueList = listOfLeagues.getListOfLeagues();
+        this.Date = listOfLeagues.getDate();
         return ResponseEntity.ok(listOfLeagues.getListOfLeagues());
     }
 
@@ -97,10 +97,51 @@ public class HomeController {
         return ResponseEntity.ok(futureEventsForLeague.getListOfEvents());
     }
 
+    @GetMapping("/api/IncreaseCounter/{LeagueName}/{SportName}")
+    public ResponseEntity<String> IncreaseCount(@PathVariable(value = "LeagueName") String LeagueName, @PathVariable(value = "SportName") String SportName){
+        Counter counter = new Counter();
+       this.LeagueList = counter.IncreaseCount(LeagueName,this.LeagueList,new Database(this.mongoDatabase),SportName,this.Date);
+        return ResponseEntity.ok(LeagueName);
+    }
 
-
-//    @RequestMapping(value = "/")
-//    public String index() {
-//        return "index";
+//    @GetMapping("/api/ListOfLiveScores/{SportType}")
+//    public ResponseEntity<ArrayList<LiveScore>> getListOfLiveScores(@PathVariable(value = "SportType") String SportType){
+//        ListOfLiveEvents listOfLiveEvents = new ListOfLiveEvents(SportType,"");
+//        listOfLiveEvents.APILiveScores(listOfLiveEvents.createURLString());
+//        return ResponseEntity.ok(listOfLiveEvents.getListOfLiveScores());
 //    }
+//
+//    @GetMapping("/api/LiveScore/{LiveScoreID}/{LeagueID}")
+//    public ResponseEntity<ArrayList<LiveScore>> getLiveScore(@PathVariable(value = "LiveScoreID") String LiveScoreID, @PathVariable(value = "LeagueID") String LeagueID){
+//        ListOfLiveEvents listOfLiveEvents = new ListOfLiveEvents("",LeagueID);
+//        listOfLiveEvents.APILiveScores(listOfLiveEvents.createURLString());
+//        return ResponseEntity.ok(listOfLiveEvents.getLiveEvent(LiveScoreID));
+//    }
+//
+//    @GetMapping("/api/LeagueLiveScore/{LeagueID}")
+//    public ResponseEntity<ArrayList<LiveScore>> getLeagueLiveScore( @PathVariable(value = "LeagueID") String LeagueID){
+//        ListOfLiveEvents listOfLiveEvents = new ListOfLiveEvents("",LeagueID);
+//        listOfLiveEvents.APILiveScores(listOfLiveEvents.createURLString());
+//        return ResponseEntity.ok(listOfLiveEvents.getListOfLiveScores());
+//    }
+//
+//
+    @GetMapping("/api/ListOfLiveScores/{SportType}")
+    public ResponseEntity<ArrayList<LiveScore>> getListOfLiveScoresTEST(@PathVariable(value = "SportType") String SportType){
+        TestListOfLiveEvents testListOfLiveEvents = new TestListOfLiveEvents();
+        return ResponseEntity.ok(testListOfLiveEvents.GetJson());
+    }
+
+    @GetMapping("/api/LiveScore/{LiveScoreID}/{LeagueID}")
+    public ResponseEntity<ArrayList<LiveScore>> getLiveScoreTEST(@PathVariable(value = "LiveScoreID") String LiveScoreID, @PathVariable(value = "LeagueID") String LeagueID){
+        TestListOfLiveEvents testListOfLiveEvents = new TestListOfLiveEvents();
+        return ResponseEntity.ok(testListOfLiveEvents.GetJson());
+    }
+
+    @GetMapping("/api/LeagueLiveScore/{LeagueID}")
+    public ResponseEntity<ArrayList<LiveScore>> getLeagueLiveScoreTEST( @PathVariable(value = "LeagueID") String LeagueID){
+        TestListOfLiveEvents testListOfLiveEvents = new TestListOfLiveEvents();
+        return ResponseEntity.ok(testListOfLiveEvents.GetJson());
+    }
+
 }

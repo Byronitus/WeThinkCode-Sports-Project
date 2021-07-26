@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileReader;
 
 public class ListOfTeamsTest {
-    public Database database;
     public MongoDatabase mongoDatabase;
 
     @Test

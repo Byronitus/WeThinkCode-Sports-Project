@@ -2,23 +2,17 @@ import React, {Component} from "react";
 import axios from "axios";
 import Header from "../components/layouts/Header";
 import ListOfPlayers from "../components/Map/ListOfPlayers";
-import FixturesInfo from "../components/Info/FixturesInfo";
-import ResultsInfo from "../components/Info/ResultsInfo";
 
-export class TeamsPage extends Component {
+export class TeamResultsAndFixturesPage extends Component {
 
 
     constructor(props) {
         super(props);
-        this.state = {PlayerList:[],FutureEvents:[],PastEvents:[]}
+        this.state = {FutureEvents:[], PastEvents : []}
     }
 
 
     componentDidMount() {
-        axios.get("/api/Players/"+this.props.location.state.TeamID)
-            .then(response => {
-                this.setState({PlayerList:response.data});
-            })
         axios.get("/api/TeamUpcomingEvents/"+this.props.location.state.TeamID)
             .then(response => {this.setState({FutureEvents:response.data});})
         axios.get("/api/TeamPastEvents/"+this.props.location.state.TeamID)
@@ -27,16 +21,12 @@ export class TeamsPage extends Component {
 
 
     render() {
-        if (this.state.PlayerList.length > 0) {
+        if (this.state.FutureEvents.length > 0 && this.state.PastEvents.length > 0) {
             return (
                 <div className="container">
                     <Header/>
                     {this.props.location.state.TeamDescription}
                     <ListOfPlayers playerList={this.state.PlayerList}/>
-                    Fixtures:
-                    <FixturesInfo user={this.state.FutureEvents}/>
-                    Results:
-                    <ResultsInfo user={this.state.PastEvents}/>
                 </div>
             );
         }
@@ -46,4 +36,4 @@ export class TeamsPage extends Component {
     }
 }
 
-export default TeamsPage;
+export default TeamResultsAndFixturesPage;

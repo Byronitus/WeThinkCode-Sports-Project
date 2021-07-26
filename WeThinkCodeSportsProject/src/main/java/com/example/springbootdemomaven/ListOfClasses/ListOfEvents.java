@@ -58,9 +58,17 @@ public class ListOfEvents {
                 Event event = this.gson.fromJson(eventJson, Event.class);
                 changeURL(event);
                 checkImage(event);
+                checkVideo(event);
                 this.ListOfEvent.add(event);
             }
         }catch(Exception e){e.printStackTrace();}
+    }
+
+    public void checkVideo(Event event){
+        if (!(event.getStrVideo() == null)){
+            String VideoID = event.getStrVideo().substring(32);
+            event.setStrVideo(VideoID);
+        }
     }
 
     public void checkImage(Event event){
@@ -78,11 +86,6 @@ public class ListOfEvents {
         }catch (Exception e){}
     }
 
-    public void TestPrint() {
-        for (Event event : this.ListOfEvent) {
-            System.out.println(event.getStrEvent());
-        }
-    }
 
     public ArrayList<Event> getListOfEvent(){
         return this.ListOfEvent;

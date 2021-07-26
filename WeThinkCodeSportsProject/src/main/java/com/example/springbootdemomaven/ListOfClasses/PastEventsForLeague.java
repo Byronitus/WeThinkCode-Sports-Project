@@ -53,7 +53,7 @@ public class PastEventsForLeague {
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"PastLeagueEvents",this.LeagueID);
+                this.database.AddDocument(jsonObject,"PastLeagueEvents",this.LeagueID,"");
             }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}

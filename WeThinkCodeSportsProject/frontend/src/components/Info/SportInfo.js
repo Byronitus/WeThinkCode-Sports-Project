@@ -28,28 +28,18 @@ class SportInfo extends Component{
     }
 
     render() {
-        //Destructuring instead of using this.props.user.<variable> you can now use name | surname
         if (this.state.check){
             return <Redirect push to={{pathname: "/league",state: {sport : this.props.user.strSport, Description : this.props.user.strSportDescription}}}/>
         }
         const {id} = this.props.user;
         return(
             <div style={this.infoStyle()}>
-                {/*<p>{this.props.user.strSport }</p>*/}
                 <Button color="primary" variant="outlined" onClick={this.setCheck}>
                     {this.props.user.strSport}
                 </Button>
                 <div className="shoe-container" style={{ justifyContent:'center', alignItems:'center'}}>
                     <img src={this.props.user.strSportThumb} alt=""/>
                 </div>
-                {/*<div style={buttons}>*/}
-                    {/*<IconButton color="secondary" onClick={this.props.removeUser.bind(this,id )} >  Because binding in faling in Jest i have used arrow function binding*/}
-                    {/*<IconButton color="secondary" onClick={(e) =>this.props.removeUser(id,e)} >*/}
-                    {/*    <DeleteIcon />*/}
-                    {/*</IconButton>*/}
-
-                {/*</div>*/}
-
             </div>
         );
     }

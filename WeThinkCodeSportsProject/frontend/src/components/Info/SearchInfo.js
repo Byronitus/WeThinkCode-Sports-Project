@@ -19,7 +19,6 @@ class SearchInfo extends Component{
         this.setState({check3:true});
     }
 
-    //dynamic Styling
     infoStyle = () =>{
         return {
             backgroundColor: (this.props.user.id %2) == 0? '#c8d4f7cc' :'',
@@ -46,7 +45,7 @@ class SearchInfo extends Component{
         }
 
         if (this.state.check3){
-            return <Redirect push to={{pathname: "/Events",state: {sportType : this.props.user.strSport,
+            return <Redirect push to={{pathname: "/Events",state: {Description : this.props.user.strDescriptionEN, Video : this.props.user.strVideo ,sportType : this.props.user.strSport,
                     Event : this.props.user.strFilename, League : this.props.user.strLeague, Round : this.props.user.intRound,
                     Date : this.props.user.dateEvent, Venue : this.props.user.strVenue, Country : this.props.user.strCountry, Started : this.props.user.strStatus}}}/>
         }
@@ -90,16 +89,7 @@ class SearchInfo extends Component{
     }
 }
 
-const iconUsername = {
-    display: 'flex',
-    justifyContent:'space-between',
 
-}
-
-const buttons = {
-    display: 'flex'
-}
-//PropTypes
 SearchInfo.propTypes = {
     user : PropTypes.object.isRequired
 }

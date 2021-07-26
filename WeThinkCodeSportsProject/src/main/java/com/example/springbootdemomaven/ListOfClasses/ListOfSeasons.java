@@ -61,11 +61,6 @@ public class ListOfSeasons {
         }catch(Exception e){e.printStackTrace();}
     }
 
-    public void TestPrint() {
-        for (Season season : this.ListOfSeasons) {
-            System.out.println(season.getStrSeason());
-        }
-    }
 
     public ArrayList<Season> getListOfSeasons(){
         return this.ListOfSeasons;

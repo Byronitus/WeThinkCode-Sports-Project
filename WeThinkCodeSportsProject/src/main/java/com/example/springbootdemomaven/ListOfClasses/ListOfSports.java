@@ -42,7 +42,6 @@ public class ListOfSports {
     }
 
     public String createURLString(){
-        System.out.println(this.APIkey);
         return this.API+this.APIkey+this.field;
     }
 
@@ -56,7 +55,7 @@ public class ListOfSports {
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-            database.AddDocument(jsonObject,"Sports","Sports");
+            database.AddDocument(jsonObject,"Sports","Sports","");
             }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}
@@ -80,11 +79,6 @@ public class ListOfSports {
         }
     }
 
-    public void TestPrint() {
-        for (Sport sport : this.ListOfSports) {
-            System.out.println(sport.getStrSport());
-        }
-    }
 
     public ArrayList<Sport> getListOfSports(){
         return this.ListOfSports;

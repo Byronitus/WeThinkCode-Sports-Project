@@ -55,7 +55,7 @@ public class ListOfTeams {
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"Teams",this.LeagueID);
+                this.database.AddDocument(jsonObject,"Teams",this.LeagueID,"");
             }
             addToArrayList(jsonObject);
         }catch (Exception e){e.printStackTrace();}
@@ -89,11 +89,6 @@ public class ListOfTeams {
             }
     }
 
-    public void TestPrint() {
-        for (Team team : this.ListOfTeams) {
-            System.out.println(team.getStrTeam());
-        }
-    }
 
     public ArrayList<Team> getListOfTeams(){
         return this.ListOfTeams;
