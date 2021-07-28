@@ -1,7 +1,6 @@
 package com.example.springbootdemomaven.ListOfClasses;
 
 import com.example.springbootdemomaven.Classes.Event;
-import com.example.springbootdemomaven.Classes.League;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -21,36 +20,37 @@ public class ListOfEvents {
     public Gson gson = new Gson();
     public String APIkey;
 
-    public ListOfEvents(){
+    public ListOfEvents() {
         ReadFromIni();
     }
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIkey = "1";
         }
     }
 
-    public String createURLString(String LeagueID, String SeasonName){
-        return this.API+this.APIkey+this.field+LeagueID+"&s="+SeasonName;
+    public String createURLString(String LeagueID, String SeasonName) {
+        return this.API + this.APIkey + this.field + LeagueID + "&s=" + SeasonName;
     }
 
-    public void APIListEvents(String url){
-        try
-        {
+    public void APIListEvents(String url) {
+        try {
             Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("events");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -61,33 +61,36 @@ public class ListOfEvents {
                 checkVideo(event);
                 this.ListOfEvent.add(event);
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void checkVideo(Event event){
-        if (!(event.getStrVideo() == null)){
+    public void checkVideo(Event event) {
+        if (!(event.getStrVideo() == null)) {
             String VideoID = event.getStrVideo().substring(32);
             event.setStrVideo(VideoID);
         }
     }
 
-    public void checkImage(Event event){
-        if (event.strThumb == null){
+    public void checkImage(Event event) {
+        if (event.strThumb == null) {
             event.setStrThumb("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
         }
     }
 
-    public void changeURL(Event event){
+    public void changeURL(Event event) {
         try {
             String logo = event.getStrThumb();
             String url = "https://www.thesportsdb.com/images/media/event/thumb/";
             logo = logo.replaceAll(url, "small/");
             event.setStrThumb(url + logo);
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
     }
 
 
-    public ArrayList<Event> getListOfEvent(){
+    public ArrayList<Event> getListOfEvent() {
         return this.ListOfEvent;
     }
 }

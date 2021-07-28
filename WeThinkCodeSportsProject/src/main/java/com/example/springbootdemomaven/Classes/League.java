@@ -52,15 +52,17 @@ public class League {
         return Count;
     }
 
-    public void IncreaseCount(){
+    public void IncreaseCount() {
         try {
             this.Count = this.Count + 1;
-        }catch (Exception e){
+        } catch (Exception e) {
             this.Count = 0;
         }
     }
 
-    public void setStrLogo(String url){this.strLogo = url;}
+    public void setStrLogo(String url) {
+        this.strLogo = url;
+    }
 
     public String getStrLocked() {
         return strLocked;

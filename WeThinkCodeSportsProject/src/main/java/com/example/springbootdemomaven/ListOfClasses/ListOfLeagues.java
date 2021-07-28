@@ -29,31 +29,30 @@ public class ListOfLeagues {
     public String Date;
     public Boolean check = false;
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIkey = "1";
         }
     }
 
-    public ListOfLeagues(String SportType, MongoDatabase mongoDatabase){
+    public ListOfLeagues(String SportType, MongoDatabase mongoDatabase) {
         this.database = new Database(mongoDatabase);
         this.SportType = SportType;
         ReadFromIni();
     }
 
-    public String createURLString(){
-        return this.API+this.APIkey+this.field+this.SportType.replaceAll(" ","%20");
+    public String createURLString() {
+        return this.API + this.APIkey + this.field + this.SportType.replaceAll(" ", "%20");
     }
 
-    public void APIListLeagues(String url){
-        try
-        {
+    public void APIListLeagues(String url) {
+        try {
             JsonObject jsonObject;
-            jsonObject = this.database.checkIfDocumentExists(this.SportType.toLowerCase(),"Leagues");
+            jsonObject = this.database.checkIfDocumentExists(this.SportType.toLowerCase(), "Leagues");
             if (jsonObject == null) {
                 this.check = true;
                 Scanner scanner = new Scanner(new URL(url).openStream(),
@@ -61,33 +60,35 @@ public class ListOfLeagues {
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
 //                jsonObject = addCount(jsonObject);
-                this.database.AddDocument(jsonObject,"Leagues",this.SportType.toLowerCase(),"");
+                this.database.AddDocument(jsonObject, "Leagues", this.SportType.toLowerCase(), "");
             }
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public JsonObject addCount(JsonObject jsonObject){
+    public JsonObject addCount(JsonObject jsonObject) {
         JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
         JsonObject newJsonObject = new JsonObject();
         JsonArray newJsonArray = new JsonArray();
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject leaguesJson = (JsonObject) jsonArray.get(i);
-            leaguesJson.addProperty("Count",0);
+            leaguesJson.addProperty("Count", 0);
             newJsonArray.add(leaguesJson);
         }
-        newJsonObject.add("countrys",newJsonArray);
+        newJsonObject.add("countrys", newJsonArray);
         return newJsonObject;
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
             this.Date = String.valueOf(jsonObject.get("date"));
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject leaguesJson = (JsonObject) jsonArray.get(i);
                 League league = this.gson.fromJson(leaguesJson, League.class);
-                if (this.check){
+                if (this.check) {
                     addCount(league);
                 }
                 changeURL(league);
@@ -95,42 +96,47 @@ public class ListOfLeagues {
                 this.ListOfLeagues.add(league);
             }
             Counter counter = new Counter();
-            counter.UpdateDatabase(this.ListOfLeagues,this.database,this.ListOfLeagues.get(0).getStrSport(),this.Date);
-        }catch(Exception e){e.printStackTrace();}
+            counter.UpdateDatabase(this.ListOfLeagues, this.database, this.ListOfLeagues.get(0).getStrSport(), this.Date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addCount(League league){
-        if (this.database.getCountList().size() > 0){
-             for (ArrayList<String> CountList:this.database.getCountList()){
-                 if (league.getStrLeague().equals(CountList.get(0).replaceAll("\"",""))){
-                     league.Count = Integer.parseInt(CountList.get(1));
-                     break;
-                 }
-             }
-        }else{
+    public void addCount(League league) {
+        if (this.database.getCountList().size() > 0) {
+            for (ArrayList<String> CountList : this.database.getCountList()) {
+                if (league.getStrLeague().equals(CountList.get(0).replaceAll("\"", ""))) {
+                    league.Count = Integer.parseInt(CountList.get(1));
+                    break;
+                }
+            }
+        } else {
             league.Count = 0;
         }
     }
 
-    public void checkImage(League league){
-        if (league.strLogo == null){
+    public void checkImage(League league) {
+        if (league.strLogo == null) {
             league.setStrLogo("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
         }
     }
 
-    public void changeURL(League league){
+    public void changeURL(League league) {
         try {
-                String logo = league.getStrLogo();
-                String url = "https://www.thesportsdb.com/images/media/league/logo/";
-                logo = logo.replaceAll(url, "small/");
-                league.setStrLogo(url + logo);
-        }catch (Exception e){}
+            String logo = league.getStrLogo();
+            String url = "https://www.thesportsdb.com/images/media/league/logo/";
+            logo = logo.replaceAll(url, "small/");
+            league.setStrLogo(url + logo);
+        } catch (Exception e) {
+        }
     }
 
 
-    public String getDate(){return this.Date;}
+    public String getDate() {
+        return this.Date;
+    }
 
-    public ArrayList<League> getListOfLeagues(){
+    public ArrayList<League> getListOfLeagues() {
         this.ListOfLeagues.sort(Comparator.comparing(League::getCount).reversed());
         return this.ListOfLeagues;
     }

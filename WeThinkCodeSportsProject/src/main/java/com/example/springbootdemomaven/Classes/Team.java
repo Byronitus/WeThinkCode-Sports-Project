@@ -1,6 +1,6 @@
 package com.example.springbootdemomaven.Classes;
 
-public class Team{
+public class Team {
     public String idTeam;
     public String idSoccerXML;
     public String idAPIfootball;
@@ -65,9 +65,13 @@ public class Team{
     public String strYoutube;
     public String strLocked;
 
-    public void setStrTeamBadge(String url){this.strTeamBadge = url;}
+    public void setStrTeamBadge(String url) {
+        this.strTeamBadge = url;
+    }
 
-    public void setTeamLogo(String url){this.strTeamLogo = url;}
+    public void setTeamLogo(String url) {
+        this.strTeamLogo = url;
+    }
 
     public String getStrYoutube() {
         return strYoutube;
