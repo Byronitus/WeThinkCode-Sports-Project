@@ -68,27 +68,10 @@ public class FutureEventsForTeam {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject playerJson = (JsonObject) jsonArray.get(i);
                 Event event = this.gson.fromJson(playerJson, Event.class);
-//                changeURL(player);
-//                checkImage(player);
                 this.ListOfEvents.add(event);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-
-    public void checkImage(Team team) {
-        if (team.strTeamLogo == null) {
-            team.setTeamLogo("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
-        }
-    }
-
-    public void changeURL(Team team) {
-        String badge = team.getStrTeamLogo();
-        if (badge != null) {
-            String url = "https://www.thesportsdb.com/images/media/team/logo/";
-            badge = badge.replaceAll(url, "small/");
-            team.setTeamLogo(url + badge);
         }
     }
 

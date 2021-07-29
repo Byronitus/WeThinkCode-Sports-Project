@@ -1,5 +1,6 @@
 package com.example.springbootdemomaven.ListOfClasses;
 
+import com.byronitis.wethinkcode.UtilFunctions;
 import com.example.springbootdemomaven.Classes.Event;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -56,7 +57,7 @@ public class ListOfEvents {
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject eventJson = (JsonObject) jsonArray.get(i);
                 Event event = this.gson.fromJson(eventJson, Event.class);
-                changeURL(event);
+                event.setStrThumb(UtilFunctions.changeURL(event.getStrThumb(), "https://www.thesportsdb.com/images/media/event/thumb/"));
                 checkImage(event);
                 checkVideo(event);
                 this.ListOfEvent.add(event);
@@ -78,17 +79,6 @@ public class ListOfEvents {
             event.setStrThumb("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
         }
     }
-
-    public void changeURL(Event event) {
-        try {
-            String logo = event.getStrThumb();
-            String url = "https://www.thesportsdb.com/images/media/event/thumb/";
-            logo = logo.replaceAll(url, "small/");
-            event.setStrThumb(url + logo);
-        } catch (Exception e) {
-        }
-    }
-
 
     public ArrayList<Event> getListOfEvent() {
         return this.ListOfEvent;
