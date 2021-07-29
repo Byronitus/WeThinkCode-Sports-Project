@@ -1,6 +1,8 @@
 package com.example.springbootdemomaven.ListOfClasses;
 
 
+import com.byronitis.wethinkcode.Constants;
+import com.byronitis.wethinkcode.UtilFunctions;
 import com.example.springbootdemomaven.Classes.Counter;
 import com.example.springbootdemomaven.Classes.Database;
 import com.example.springbootdemomaven.Classes.League;
@@ -8,10 +10,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mongodb.client.MongoDatabase;
-import org.ini4j.Wini;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -19,48 +18,46 @@ import java.util.Comparator;
 import java.util.Scanner;
 
 public class ListOfLeagues {
-    public ArrayList<League> ListOfLeagues = new ArrayList<>();
-    public final String API = "https://www.thesportsdb.com/api/v1/json/";
-    public String field = "/search_all_leagues.php?s=";
-    public Gson gson = new Gson();
-    public String SportType;
-    public Database database;
-    public String APIkey;
-    public String Date;
-    public Boolean check = false;
 
-    public void ReadFromIni() {
-        try {
-            InputStream inputStream = new FileInputStream("APIKey.ini");
-            Wini iniFile = new Wini(inputStream);
-            this.APIkey = iniFile.get("APIKey", "key", String.class);
-        } catch (Exception e) {
-            this.APIkey = "1";
-        }
-    }
+    /*
+        NOTE: General Changes
+        1) by convention, variables in Java start with a lowercase letter
+        2) by convention, class methods in Java start with a lowercase letter
+        3) Class members should be private, unless there is an explicit reason to do otherwise
+        4) Frequently-used strings (like the image-not-available URL) should be extracted to constants, and referenced everywhere
+     */
+
+    private final ArrayList<League> listOfLeagues = new ArrayList<>();
+    private final String api = "https://www.thesportsdb.com/api/v1/json/";
+    private final String field = "/search_all_leagues.php?s=";
+    private final Gson gson = new Gson();
+    private final String sportType;
+    private final Database database;
+    private final String apiKey;
+    private String date;
+    private Boolean check = false;
 
     public ListOfLeagues(String SportType, MongoDatabase mongoDatabase) {
         this.database = new Database(mongoDatabase);
-        this.SportType = SportType;
-        ReadFromIni();
+        this.sportType = SportType;
+        this.apiKey = UtilFunctions.readFromIni();
     }
 
     public String createURLString() {
-        return this.API + this.APIkey + this.field + this.SportType.replaceAll(" ", "%20");
+        return this.api + this.apiKey + this.field + this.sportType.replaceAll(" ", "%20");
     }
 
-    public void APIListLeagues(String url) {
+    public void listLeagues(String url) {
         try {
             JsonObject jsonObject;
-            jsonObject = this.database.checkIfDocumentExists(this.SportType.toLowerCase(), "Leagues");
+            jsonObject = this.database.checkIfDocumentExists(this.sportType.toLowerCase(), "Leagues");
             if (jsonObject == null) {
                 this.check = true;
                 Scanner scanner = new Scanner(new URL(url).openStream(),
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-//                jsonObject = addCount(jsonObject);
-                this.database.AddDocument(jsonObject, "Leagues", this.SportType.toLowerCase(), "");
+                this.database.AddDocument(jsonObject, "Leagues", this.sportType.toLowerCase(), "");
             }
             addToArrayList(jsonObject);
         } catch (Exception e) {
@@ -68,41 +65,28 @@ public class ListOfLeagues {
         }
     }
 
-    public JsonObject addCount(JsonObject jsonObject) {
-        JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
-        JsonObject newJsonObject = new JsonObject();
-        JsonArray newJsonArray = new JsonArray();
-        for (int i = 0; i < jsonArray.size(); i++) {
-            JsonObject leaguesJson = (JsonObject) jsonArray.get(i);
-            leaguesJson.addProperty("Count", 0);
-            newJsonArray.add(leaguesJson);
-        }
-        newJsonObject.add("countrys", newJsonArray);
-        return newJsonObject;
-    }
-
-    public void addToArrayList(JsonObject jsonObject) {
+    private void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("countrys");
-            this.Date = String.valueOf(jsonObject.get("date"));
+            this.date = String.valueOf(jsonObject.get("date"));
             for (int i = 0; i < jsonArray.size(); i++) {
                 JsonObject leaguesJson = (JsonObject) jsonArray.get(i);
                 League league = this.gson.fromJson(leaguesJson, League.class);
                 if (this.check) {
                     addCount(league);
                 }
-                changeURL(league);
+                league.setStrLogo(UtilFunctions.changeURL(league.getStrLogo(), "https://www.thesportsdb.com/images/media/league/logo/"));
                 checkImage(league);
-                this.ListOfLeagues.add(league);
+                this.listOfLeagues.add(league);
             }
             Counter counter = new Counter();
-            counter.UpdateDatabase(this.ListOfLeagues, this.database, this.ListOfLeagues.get(0).getStrSport(), this.Date);
+            counter.UpdateDatabase(this.listOfLeagues, this.database, this.listOfLeagues.get(0).getStrSport(), this.date);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void addCount(League league) {
+    private void addCount(League league) {
         if (this.database.getCountList().size() > 0) {
             for (ArrayList<String> CountList : this.database.getCountList()) {
                 if (league.getStrLeague().equals(CountList.get(0).replaceAll("\"", ""))) {
@@ -115,29 +99,18 @@ public class ListOfLeagues {
         }
     }
 
-    public void checkImage(League league) {
+    private void checkImage(League league) {
         if (league.strLogo == null) {
-            league.setStrLogo("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
+            league.setStrLogo(Constants.IMG_NOT_AVAILABLE);
         }
     }
-
-    public void changeURL(League league) {
-        try {
-            String logo = league.getStrLogo();
-            String url = "https://www.thesportsdb.com/images/media/league/logo/";
-            logo = logo.replaceAll(url, "small/");
-            league.setStrLogo(url + logo);
-        } catch (Exception e) {
-        }
-    }
-
 
     public String getDate() {
-        return this.Date;
+        return this.date;
     }
 
     public ArrayList<League> getListOfLeagues() {
-        this.ListOfLeagues.sort(Comparator.comparing(League::getCount).reversed());
-        return this.ListOfLeagues;
+        this.listOfLeagues.sort(Comparator.comparing(League::getCount).reversed());
+        return this.listOfLeagues;
     }
 }

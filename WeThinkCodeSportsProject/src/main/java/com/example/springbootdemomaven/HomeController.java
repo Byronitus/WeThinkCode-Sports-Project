@@ -29,7 +29,7 @@ public class HomeController {
     @GetMapping("/api/league/{name}")
     public ResponseEntity<ArrayList<League>> getListOfLeagues(@PathVariable(value = "name") String name) {
         ListOfLeagues listOfLeagues = new ListOfLeagues(name, this.mongoDatabase);
-        listOfLeagues.APIListLeagues(listOfLeagues.createURLString());
+        listOfLeagues.listLeagues(listOfLeagues.createURLString());
         this.LeagueList = listOfLeagues.getListOfLeagues();
         this.Date = listOfLeagues.getDate();
         return ResponseEntity.ok(listOfLeagues.getListOfLeagues());
