@@ -2,7 +2,6 @@ package com.example.springbootdemomaven.ListOfClasses;
 
 import com.example.springbootdemomaven.Classes.Database;
 import com.example.springbootdemomaven.Classes.Event;
-import com.example.springbootdemomaven.Classes.Player;
 import com.example.springbootdemomaven.Classes.Team;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -26,41 +25,44 @@ public class FutureEventsForTeam {
     public String TeamID;
     public Gson gson = new Gson();
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIkey = "1";
         }
     }
 
-    public FutureEventsForTeam(MongoDatabase mongoDatabase, String TeamID){
+    public FutureEventsForTeam(MongoDatabase mongoDatabase, String TeamID) {
         this.TeamID = TeamID;
         this.database = new Database(mongoDatabase);
         ReadFromIni();
     }
 
-    public String CreateURL(){return this.API+this.APIkey+this.field+this.TeamID;}
+    public String CreateURL() {
+        return this.API + this.APIkey + this.field + this.TeamID;
+    }
 
-    public void APIListEvents(String url){
-        try
-        {
+    public void APIListEvents(String url) {
+        try {
             JsonObject jsonObject;
-            jsonObject = this.database.checkIfDocumentExists(this.TeamID,"FutureTeamEvents");
+            jsonObject = this.database.checkIfDocumentExists(this.TeamID, "FutureTeamEvents");
             if (jsonObject == null) {
                 Scanner scanner = new Scanner(new URL(url).openStream(),
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"FutureTeamEvents",this.TeamID,"");
+                this.database.AddDocument(jsonObject, "FutureTeamEvents", this.TeamID, "");
             }
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("events");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -70,25 +72,27 @@ public class FutureEventsForTeam {
 //                checkImage(player);
                 this.ListOfEvents.add(event);
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void checkImage(Team team){
-        if (team.strTeamLogo == null){
+    public void checkImage(Team team) {
+        if (team.strTeamLogo == null) {
             team.setTeamLogo("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
         }
     }
 
-    public void changeURL(Team team){
+    public void changeURL(Team team) {
         String badge = team.getStrTeamLogo();
-        if (badge != null){
+        if (badge != null) {
             String url = "https://www.thesportsdb.com/images/media/team/logo/";
-            badge = badge.replaceAll(url,"small/");
+            badge = badge.replaceAll(url, "small/");
             team.setTeamLogo(url + badge);
         }
     }
 
-    public ArrayList<Event> getListOfEvents(){
+    public ArrayList<Event> getListOfEvents() {
         return this.ListOfEvents;
     }
 

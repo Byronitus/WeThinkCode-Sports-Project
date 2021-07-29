@@ -25,43 +25,44 @@ public class ListOfTeams {
     public String APIkey;
     public String field = "/lookup_all_teams.php?id=";
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIkey = "1";
         }
     }
 
-    public ListOfTeams(String LeagueID, MongoDatabase mongoDatabase){
+    public ListOfTeams(String LeagueID, MongoDatabase mongoDatabase) {
         this.LeagueID = LeagueID;
         this.database = new Database(mongoDatabase);
         ReadFromIni();
     }
 
-    public String createURLString(){
-        return this.API+this.APIkey+this.field+this.LeagueID;
+    public String createURLString() {
+        return this.API + this.APIkey + this.field + this.LeagueID;
     }
 
-    public void APIListTeams(String url){
-        try
-        {
+    public void APIListTeams(String url) {
+        try {
             JsonObject jsonObject;
-            jsonObject = this.database.checkIfDocumentExists(this.LeagueID,"Teams");
+            jsonObject = this.database.checkIfDocumentExists(this.LeagueID, "Teams");
             if (jsonObject == null) {
                 Scanner scanner = new Scanner(new URL(url).openStream(),
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-                this.database.AddDocument(jsonObject,"Teams",this.LeagueID,"");
+                this.database.AddDocument(jsonObject, "Teams", this.LeagueID, "");
             }
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("teams");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -71,26 +72,28 @@ public class ListOfTeams {
                 checkImage(team);
                 this.ListOfTeams.add(team);
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void checkImage(Team team){
-        if (team.strTeamLogo == null){
+    public void checkImage(Team team) {
+        if (team.strTeamLogo == null) {
             team.setTeamLogo("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
         }
     }
 
-    public void changeURL(Team team){
-            String badge = team.getStrTeamLogo();
-            if (badge != null){
-                String url = "https://www.thesportsdb.com/images/media/team/logo/";
-                badge = badge.replaceAll(url,"small/");
-                team.setTeamLogo(url + badge);
-            }
+    public void changeURL(Team team) {
+        String badge = team.getStrTeamLogo();
+        if (badge != null) {
+            String url = "https://www.thesportsdb.com/images/media/team/logo/";
+            badge = badge.replaceAll(url, "small/");
+            team.setTeamLogo(url + badge);
+        }
     }
 
 
-    public ArrayList<Team> getListOfTeams(){
+    public ArrayList<Team> getListOfTeams() {
         return this.ListOfTeams;
     }
 }

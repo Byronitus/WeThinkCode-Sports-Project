@@ -24,42 +24,43 @@ public class ListOfLiveEvents {
     public String SportType;
     public String EventID;
 
-    public ListOfLiveEvents(String sportType, String EventID){
+    public ListOfLiveEvents(String sportType, String EventID) {
         ReadFromIni();
         this.SportType = sportType;
         this.EventID = EventID;
     }
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIKey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIKey = "1";
         }
     }
 
-    public String createURLString(){
+    public String createURLString() {
         if (this.EventID.equals("")) {
             return this.API + this.APIKey + this.sportField + this.SportType;
-        }else{
+        } else {
             return this.API + this.APIKey + this.idField + this.EventID;
         }
     }
 
-    public void APILiveScores(String url){
-        try
-        {
+    public void APILiveScores(String url) {
+        try {
             Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("events");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -67,19 +68,22 @@ public class ListOfLiveEvents {
                 LiveScore liveScore = this.gson.fromJson(seasonJson, LiveScore.class);
                 this.ListOfLiveScores.add(liveScore);
             }
-        }catch(Exception e){}
+        } catch (Exception e) {
+        }
     }
 
-    public ArrayList<LiveScore> getLiveEvent(String LiveEventID){
+    public ArrayList<LiveScore> getLiveEvent(String LiveEventID) {
         ArrayList<LiveScore> list = new ArrayList<>();
-        for (LiveScore liveScore:this.ListOfLiveScores){
-            if (liveScore.getIdLiveScore().equals(LiveEventID)){
+        for (LiveScore liveScore : this.ListOfLiveScores) {
+            if (liveScore.getIdLiveScore().equals(LiveEventID)) {
                 list.add(liveScore);
             }
         }
         return list;
     }
 
-    public ArrayList<LiveScore> getListOfLiveScores(){return this.ListOfLiveScores;}
+    public ArrayList<LiveScore> getListOfLiveScores() {
+        return this.ListOfLiveScores;
+    }
 
 }

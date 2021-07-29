@@ -65,9 +65,13 @@ public class Event {
     public String strPostponed;
     public String strLocked;
 
-    public void setStrVideo(String videoID){this.strVideo = videoID;}
+    public void setStrVideo(String videoID) {
+        this.strVideo = videoID;
+    }
 
-    public void setStrThumb(String url){this.strThumb = url;}
+    public void setStrThumb(String url) {
+        this.strThumb = url;
+    }
 
     public String getStrLocked() {
         return strLocked;

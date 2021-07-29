@@ -24,7 +24,7 @@ public class LiveScore {
     public String dateEvent;
     public String updated;
 
-    public String getIdLiveScore(){
+    public String getIdLiveScore() {
         return this.idEvent;
     }
 }

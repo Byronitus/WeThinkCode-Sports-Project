@@ -9,7 +9,6 @@ import com.google.gson.JsonObject;
 import com.mongodb.client.MongoDatabase;
 import org.ini4j.Wini;
 
-
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.URL;
@@ -26,61 +25,64 @@ public class ListOfSports {
     public Gson gson = new Gson();
     public Database database;
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIkey = "1";
         }
     }
 
-    public ListOfSports(MongoDatabase mongoDatabase){
+    public ListOfSports(MongoDatabase mongoDatabase) {
         ReadFromIni();
         this.database = new Database(mongoDatabase);
     }
 
-    public String createURLString(){
-        return this.API+this.APIkey+this.field;
+    public String createURLString() {
+        return this.API + this.APIkey + this.field;
     }
 
-    public void APIListSports(String url){
-        try
-        {
+    public void APIListSports(String url) {
+        try {
             JsonObject jsonObject;
-            jsonObject = database.checkIfDocumentExists("Sports","Sports");
+            jsonObject = database.checkIfDocumentExists("Sports", "Sports");
             if (jsonObject == null) {
                 Scanner scanner = new Scanner(new URL(url).openStream(),
                         StandardCharsets.UTF_8.toString());
                 scanner.useDelimiter("\\A");
                 jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
-            database.AddDocument(jsonObject,"Sports","Sports","");
+                database.AddDocument(jsonObject, "Sports", "Sports", "");
             }
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("sports");
-                for (int i = 0; i < jsonArray.size(); i++) {
-                    JsonObject sportJson = (JsonObject) jsonArray.get(i);
-                    Sport sport = this.gson.fromJson(sportJson, Sport.class);
-                    checkImage(sport);
-                    this.ListOfSports.add(sport);
-                }
-            }catch(Exception e){e.printStackTrace();}
+            for (int i = 0; i < jsonArray.size(); i++) {
+                JsonObject sportJson = (JsonObject) jsonArray.get(i);
+                Sport sport = this.gson.fromJson(sportJson, Sport.class);
+                checkImage(sport);
+                this.ListOfSports.add(sport);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void checkImage(Sport sport){
-        if (sport.getStrSportThumb() == null){
+    public void checkImage(Sport sport) {
+        if (sport.getStrSportThumb() == null) {
             sport.setStrSportThumb("https://www.mycashflow.online/cdn/assets/layouts/app/img/img_not_available.png");
         }
     }
 
 
-    public ArrayList<Sport> getListOfSports(){
+    public ArrayList<Sport> getListOfSports() {
         return this.ListOfSports;
     }
 }

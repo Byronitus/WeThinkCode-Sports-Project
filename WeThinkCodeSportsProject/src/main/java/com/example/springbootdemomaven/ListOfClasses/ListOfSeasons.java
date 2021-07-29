@@ -21,36 +21,37 @@ public class ListOfSeasons {
     public Gson gson = new Gson();
     public String APIkey;
 
-    public ListOfSeasons(){
+    public ListOfSeasons() {
         ReadFromIni();
     }
 
-    public void ReadFromIni(){
+    public void ReadFromIni() {
         try {
             InputStream inputStream = new FileInputStream("APIKey.ini");
             Wini iniFile = new Wini(inputStream);
             this.APIkey = iniFile.get("APIKey", "key", String.class);
-        }catch (Exception e){
+        } catch (Exception e) {
             this.APIkey = "1";
         }
     }
 
-    public String createURLString(String LeagueID){
-        return this.API+this.APIkey+this.field+LeagueID;
+    public String createURLString(String LeagueID) {
+        return this.API + this.APIkey + this.field + LeagueID;
     }
 
-    public void APIListSeason(String url){
-        try
-        {
+    public void APIListSeason(String url) {
+        try {
             Scanner scanner = new Scanner(new URL(url).openStream(),
                     StandardCharsets.UTF_8.toString());
             scanner.useDelimiter("\\A");
             JsonObject jsonObject = new Gson().fromJson(scanner.next(), JsonObject.class);
             addToArrayList(jsonObject);
-        }catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void addToArrayList(JsonObject jsonObject){
+    public void addToArrayList(JsonObject jsonObject) {
         try {
             JsonArray jsonArray = (JsonArray) jsonObject.get("seasons");
             for (int i = 0; i < jsonArray.size(); i++) {
@@ -58,11 +59,13 @@ public class ListOfSeasons {
                 Season season = this.gson.fromJson(seasonJson, Season.class);
                 this.ListOfSeasons.add(season);
             }
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
-    public ArrayList<Season> getListOfSeasons(){
+    public ArrayList<Season> getListOfSeasons() {
         return this.ListOfSeasons;
     }
 }

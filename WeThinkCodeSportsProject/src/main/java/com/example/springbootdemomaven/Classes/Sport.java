@@ -9,7 +9,9 @@ public class Sport {
     public String strSportThumbGreen;
     public String strSportDescription;
 
-    public void setStrSportThumb(String url){this.strSportThumb = url;}
+    public void setStrSportThumb(String url) {
+        this.strSportThumb = url;
+    }
 
     public String getStrSportDescription() {
         return strSportDescription;
